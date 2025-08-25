@@ -3,64 +3,59 @@
 import { Button } from "./ui/button";
 import { Menu, Moon, Sun, X, Home, Info, Briefcase, Mail, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
-export function Header() {
+export default function Header() {
+  const [mounted, setMounted] = useState(false);   // 避免 SSR 水合不一致
   const [isDark, setIsDark] = useState(false);
   const [isPanelOpen, setIsPanelOpen] = useState(false);
 
+  // 仅在客户端读取/同步当前主题
   useEffect(() => {
-    const isDarkMode = document.documentElement.classList.contains('dark');
-    setIsDark(isDarkMode);
+    setMounted(true);
+    setIsDark(document.documentElement.classList.contains("dark"));
   }, []);
 
+  // 抽屉打开时禁止 body 滚动
   useEffect(() => {
-    // Prevent body scroll when panel is open
-    if (isPanelOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-
-    // Cleanup on unmount
+    if (!mounted) return;
+    document.body.style.overflow = isPanelOpen ? "hidden" : "unset";
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
-  }, [isPanelOpen]);
+  }, [isPanelOpen, mounted]);
 
   const toggleDarkMode = () => {
-    document.documentElement.classList.toggle('dark');
-    setIsDark(!isDark);
+    if (!mounted) return;
+    document.documentElement.classList.toggle("dark");
+    setIsDark((v) => !v);
   };
 
-  const togglePanel = () => {
-    setIsPanelOpen(!isPanelOpen);
-  };
-
-  const closePanel = () => {
-    setIsPanelOpen(false);
-  };
+  const togglePanel = () => setIsPanelOpen((v) => !v);
+  const closePanel = () => setIsPanelOpen(false);
 
   const navItems = [
-    { href: "#home", label: "Home", icon: Home },
-    { href: "#about", label: "About", icon: Info },
-    { href: "#services", label: "Services", icon: Briefcase },
-    { href: "#contact", label: "Contact", icon: Mail },
+    { href: "/archives", label: "笔记", icon: Home },
+    { href: "/about", label: "关于", icon: Info },
+    { href: "/dashboard", label: "面板", icon: Briefcase },
+    { href: "/mine", label: "我的", icon: Mail },
   ];
 
   return (
     <>
+    {/* 回主页按钮 */}
       <header className="sticky top-0 z-50 w-full border-b border-border/20 backdrop-blur-md">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center cursor-pointer" onClick={closePanel}>
               <div className="flex-shrink-0">
-                <h1 className="text-xl font-bold text-primary bg-gradient-primary bg-clip-text text-transparent">
-                  Your Brand
+                <h1 className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+                  <Link href="/">主页</Link>
                 </h1>
               </div>
             </div>
 
-            {/* Desktop Navigation */}
+            {/* 导航栏 */}
             <nav className="hidden md:block">
               <div className="flex items-center space-x-8">
                 {navItems.map((item) => (
@@ -70,31 +65,34 @@ export function Header() {
                     className="text-foreground hover:text-primary transition-colors cursor-pointer relative group"
                   >
                     {item.label}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300"></span>
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300" />
                   </a>
                 ))}
               </div>
             </nav>
 
             <div className="flex items-center space-x-4">
+              {/* mounted 后再渲染图标，避免水合闪烁 */}
+              {/* 切换主题 */}
+              {mounted && (
+                <Button
+                  aria-label="Toggle theme"
+                  variant="ghost"
+                  size="icon"
+                  onClick={toggleDarkMode}
+                  className="w-9 h-9 cursor-pointer hover:bg-black/10 hover:text-white transition-all duration-300"
+                >
+                  {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                </Button>
+              )}
+
+              {/* Mobile panel toggle */}
               <Button
+                aria-label="Open menu"
                 variant="ghost"
                 size="icon"
-                onClick={toggleDarkMode}
-                className="w-9 h-9 cursor-pointer hover:bg-gradient-primary hover:text-white transition-all duration-300"
-              >
-                {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-              </Button>
-
-              <Button className="hidden md:inline-flex bg-gradient-primary hover:bg-gradient-secondary transition-all duration-300 cursor-pointer">
-                Get Started
-              </Button>
-
-              {/* Panel toggle button */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="md:hidden cursor-pointer hover:bg-gradient-primary hover:text-white transition-all duration-300"
+                className="md:hidden cursor-pointer hover:bg-gradient-primary hover:text-white/25 transition-all duration-300"
+                // className="md:hidden cursor-pointer hover:bg-gradient-primary hover:text-white transition-all duration-300"
                 onClick={togglePanel}
               >
                 <Menu className="h-4 w-4" />
@@ -104,8 +102,9 @@ export function Header() {
         </div>
       </header>
 
+      {/* 侧边栏 */}
       {/* Collapsible Navigation Panel */}
-      {isPanelOpen && (
+      {mounted && isPanelOpen && (
         <>
           {/* Backdrop */}
           <div
@@ -113,17 +112,20 @@ export function Header() {
             onClick={closePanel}
           />
 
-          {/* Sliding Panel */}
+          {/* Sliding Panel — 从右侧出现 */}
           <div
-            className={`fixed top-0 left-0 h-full w-80 bg-background/95 backdrop-blur-md border-r shadow-2xl z-50 cursor-default transition-transform duration-300 ease-out ${
-              isPanelOpen ? 'translate-x-0' : '-translate-x-full'
+            className={`fixed top-0 right-0 h-full w-80 bg-background/95 backdrop-blur-md border-l shadow-2xl z-50 cursor-default transition-transform duration-300 ease-out ${
+              isPanelOpen ? "translate-x-0" : "translate-x-full"
             }`}
+            role="dialog"
+            aria-modal="true"
           >
             <div className="flex flex-col h-full">
               {/* Panel Header */}
               <div className="flex items-center justify-between p-6 border-b bg-gradient-primary">
                 <h2 className="text-xl font-bold text-white">Navigation</h2>
                 <Button
+                  aria-label="Close menu"
                   variant="ghost"
                   size="icon"
                   onClick={closePanel}
@@ -161,7 +163,7 @@ export function Header() {
 
               {/* Panel Footer */}
               <div className="p-6 border-t border-border/30">
-                <Button 
+                <Button
                   className="w-full bg-gradient-primary hover:bg-gradient-secondary transition-all duration-300 cursor-pointer"
                   onClick={closePanel}
                 >

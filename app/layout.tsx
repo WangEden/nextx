@@ -2,7 +2,35 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import localFont from "next/font/local";
+import type { ReactNode } from "react";
+import { ThemeProvider } from "next-themes";
+import AutoSunsetTheme from "@/components/function/AutoSunsetTheme";
+
 import Header from "@/components/header"
+import { Footer } from "@/components/footer";
+
+// 字体：无衬线（正文）— 纤黑/常规/中等
+const wenkai = localFont({
+  src: [
+    { path: "../public/fonts/LXGWWenKai-Light.ttf",   weight: "300", style: "normal" },
+    { path: "../public/fonts/LXGWWenKai-Regular.ttf", weight: "400", style: "normal" },
+    { path: "../public/fonts/LXGWWenKai-Medium.ttf",  weight: "500", style: "normal" },
+  ],
+  variable: "--font-wenkai",
+  display: "swap",
+});
+
+// 字体：等宽（代码）— 纤黑/常规/中等
+const wenkaiMono = localFont({
+  src: [
+    { path: "../public/fonts/LXGWWenKaiMono-Light.ttf",   weight: "300", style: "normal" },
+    { path: "../public/fonts/LXGWWenKaiMono-Regular.ttf", weight: "400", style: "normal" },
+    { path: "../public/fonts/LXGWWenKaiMono-Medium.ttf",  weight: "500", style: "normal" },
+  ],
+  variable: "--font-wenkai-mono",
+  display: "swap",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,14 +53,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
-      >
-        <Header />
-        <div >
+    <html lang="zh" suppressHydrationWarning className={`${wenkai.variable} ${wenkaiMono.variable}`}>
+      <body className="min-h-screen cursor-custom font-sans antialiased overflow-x-hidden">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <AutoSunsetTheme />
+          <Header />
           {children}
-        </div>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

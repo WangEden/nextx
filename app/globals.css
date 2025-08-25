@@ -151,12 +151,92 @@
     @apply text-foreground;
     background: var(--radial-background);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    cursor: default;
+    /* 默认指针：Normal.cur */
+    cursor: url('/cursor/Small/HuiRanPink/Normal.cur'), default;
     min-height: 100vh;
   }
 
+  /* —— 可点击 —— */
+  a, button, [role="button"], .cursor-pointer {
+    /* Link.cur */
+    cursor: url('/cursor/Small/HuiRanPink/Link.cur'), pointer;
+  }
+
+  /* —— 文本输入/选择 —— */
+  input[type="text"],
+  input[type="search"],
+  textarea,
+  [contenteditable="true"],
+  .cursor-text {
+    /* TextSelection 系列任选一个你喜欢的边框风格 */
+    cursor: url('/cursor/Small/HuiRanPink/TextSelectionNoBordered.cur'), text;
+  }
+
+  /* —— 帮助/提示 —— */
+  .cursor-help {
+    cursor: url('/cursor/Small/HuiRanPink/Help.cur'), help;
+  }
+
+  /* —— 禁止操作/不可用 —— */
+  :disabled,
+  [aria-disabled="true"],
+  .cursor-not-allowed {
+    cursor: url('/cursor/Small/HuiRanPink/No.cur'), not-allowed;
+  }
+
+  /* —— 移动/拖动 —— */
+  .cursor-move { /* 例如拖动面板 */
+    cursor: url('/cursor/Small/HuiRanPink/Move.cur'), move;
+  }
+  .cursor-grab { /* 抓取开始 */
+    cursor: url('/cursor/Small/HuiRanPink/Move.cur'), grab;
+  }
+  .cursor-grabbing { /* 抓取中 */
+    /* 没有专门 grabbing.cur，就复用 Move.cur 做视觉统一 */
+    cursor: url('/cursor/Small/HuiRanPink/Move.cur'), grabbing;
+  }
+
+  /* —— 尺寸调整（把手）—— */
+  .cursor-ew-resize { /* 左右 */
+    cursor: url('/cursor/Small/HuiRanPink/Horizontal.cur'), ew-resize;
+  }
+  .cursor-ns-resize { /* 上下 */
+    cursor: url('/cursor/Small/HuiRanPink/Vertical.cur'), ns-resize;
+  }
+  .cursor-nesw-resize { /* ↘↖ */
+    cursor: url('/cursor/Small/HuiRanPink/Diagonal1.cur'), nesw-resize;
+  }
+  .cursor-nwse-resize { /* ↗↙ */
+    cursor: url('/cursor/Small/HuiRanPink/Diagonal2.cur'), nwse-resize;
+  }
+
+  /* —— 精确选择（十字准星）—— */
+  .cursor-crosshair {
+    cursor: url('/cursor/Small/HuiRanPink/PreciseSelectionNoBordered.cur'), crosshair;
+    /* 也可以换成 PreciseSelectionBordered.cur 看你喜欢哪款 */
+  }
+
+  /* —— 手写（签名/涂鸦）—— */
+  .cursor-pen,
+  .cursor-handwriting {
+    cursor: url('/cursor/Small/HuiRanPink/HandWriting.cur'), text;
+  }
+
+  /* —— 载入/等待（.ani 不被浏览器支持，作为占位；用 wait 兜底）—— */
+  .cursor-wait,
+  [aria-busy="true"] {
+    cursor:
+      url('/cursor/Small/HuiRanPink/Loading.ani'),  /* 大概率被忽略 */
+      wait; /* 有效回退 */
+  }
+
+  /* —— 组合：候选/输入法等（看你是否用得到）—— */
+  .cursor-candidate {
+    cursor: url('/cursor/Small/HuiRanPink/Candidate.cur'), default;
+  }
+
   /* Custom cursor styles */
-  .cursor-pointer {
+  /* .cursor-pointer {
     cursor: pointer;
   }
 
@@ -170,7 +250,7 @@
 
   .cursor-custom {
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewport="0 0 20 20"><circle cx="10" cy="10" r="2" fill="%23667eea"/></svg>'), auto;
-  }
+  } */
 
   /* Gradient backgrounds */
   .bg-gradient-primary {
