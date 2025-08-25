@@ -159,7 +159,7 @@
   /* —— 可点击 —— */
   a, button, [role="button"], .cursor-pointer {
     /* Link.cur */
-    cursor: url('/cursor/Small/HuiRanPink/Link.cur'), pointer;
+    cursor: url('/cursor/Small/HuiRanPink/Link.cur'), pointer !important;
   }
 
   /* —— 文本输入/选择 —— */
