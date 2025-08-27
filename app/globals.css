@@ -343,8 +343,15 @@
 }
 
 @layer utilities {
+  /* hover时放大的弹性效果 */
   .ease-elastic {
     transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* 页面切换时的进度条样式 */
+  .loading-bar {
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    animation: loading-slide 1.2s ease-in-out infinite;
   }
 }
 
@@ -403,12 +410,8 @@ html {
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes zoomIn {
@@ -420,6 +423,20 @@ html {
     opacity: 1;
     transform: scale(1);
   }
+}
+
+@keyframes loading-slide {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* 下拉菜单过渡效果 */
+@keyframes dropdownIn {
+  from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+.animate-dropdown-in {
+  animation: dropdownIn .18s ease-out both;
 }
 
 /* Utility classes for animations */

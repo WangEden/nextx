@@ -47,7 +47,7 @@ export function FeaturesSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl sm:text-4xl">
-            Why choose our platform?
+            往期回顾
           </h2>
           <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
             Everything you need to build modern, scalable applications with confidence.
@@ -58,7 +58,9 @@ export function FeaturesSection() {
           {features.map((feature, index) => {
             const IconComponent = feature.icon;
             return (
-              <Card key={index} className="relative overflow-hidden hover:shadow-lg transition-shadow bg-card/60 backdrop-blur-sm border-border/30">
+
+              <Card key={index} className="relative overflow-hidden hover:shadow-lg bg-card/60 backdrop-blur-sm border-border/30 transform transition duration-500 ease-elastic hover:scale-102">
+              {/* <Card key={index} className="relative overflow-hidden hover:shadow-lg transition-shadow bg-card/60 backdrop-blur-sm border-border/30"> */}
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
