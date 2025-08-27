@@ -27,10 +27,10 @@ const navigation = {
 };
 
 const socialLinks = [
-  { name: "GitHub", href: "#", icon: Github },
-  { name: "X", href: "#", icon: X },
-  { name: "LinkedIn", href: "#", icon: Linkedin },
-  { name: "Email", href: "#", icon: Mail }
+  { name: "GitHub", href: "https://github.com/WangEden", icon: Github },
+  { name: "X", href: "https://github.com/WangEden", icon: X },
+  { name: "LinkedIn", href: "https://github.com/WangEden", icon: Linkedin },
+  { name: "Email", href: "https://github.com/WangEden", icon: Mail }
 ];
 
 export function Footer() {
@@ -56,6 +56,8 @@ export function Footer() {
                   <a
                     key={item.name}
                     href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-muted-foreground hover:text-primary transition-colors"
                   >
                     <span className="sr-only">{item.name}</span>
