@@ -1,74 +1,59 @@
 // components/AutoSunsetTheme.tsx
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import SunCalc from "suncalc";
 
 export default function AutoSunsetTheme() {
-  const { setTheme } = useTheme();
-  const timerRef = useRef<number | null>(null);
+  const { theme, resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
+  // Hook 1：标记 mounted（只负责标记，不 return 提前）
   useEffect(() => {
-    let cancelled = false;
+    setMounted(true);
+  }, []);
 
-    function applyThemeBySun(lat: number, lon: number) {
+  // Hook 2：仅当 mounted 且 theme === 'system' 时，根据日出日落设置一次
+  useEffect(() => {
+    if (!mounted) return;       // 确保在客户端
+    if (theme !== "system") return; // 用户已手动选择则不干预
+
+    const applyOnce = (lat: number, lon: number) => {
       const now = new Date();
       const { sunrise, sunset } = SunCalc.getTimes(now, lat, lon);
-
       const isNight = now < sunrise || now >= sunset;
-      setTheme(isNight ? "dark" : "light");
+      const target: "light" | "dark" = isNight ? "dark" : "light";
 
-      // 计算下一次切换的时间点
-      const next = isNight
-        ? // 夜间 -> 下一次切换在明天的日出
-          SunCalc.getTimes(new Date(now.getTime() + 24 * 3600 * 1000), lat, lon).sunrise
-        : // 白天 -> 下一次切换在今天的日落
-          sunset;
+      if (resolvedTheme !== target) setTheme(target); // 只有不一致才切，避免闪烁
+    };
 
-      const delay = Math.max(0, next.getTime() - now.getTime()) + 500; // +500ms 裁边
-      if (timerRef.current) window.clearTimeout(timerRef.current);
-      timerRef.current = window.setTimeout(() => applyThemeBySun(lat, lon), delay);
-    }
+    const fallbackToSystem = () => {
+      // 不做强制设置，保持 system（让系统自己管）
+    };
 
-    function fallbackToSystem() {
-      // 如果拿不到定位，就跟随系统（系统有“随日落”选项的会自己切）
-      // 这里不需要 setTheme("system")，ThemeProvider 默认已经是 system，
-      // 但你也可以显式设一下：
-      setTheme("system");
-    }
-
-    // 拿地理位置（用户若拒绝/超时，会退回系统主题）
+    // 尝试获取一次定位
     navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        if (cancelled) return;
-        const { latitude, longitude } = pos.coords;
-        applyThemeBySun(latitude, longitude);
-      },
-      () => {
-        if (!cancelled) fallbackToSystem();
-      },
+      (pos) => applyOnce(pos.coords.latitude, pos.coords.longitude),
+      () => fallbackToSystem(),
       { enableHighAccuracy: false, timeout: 5000, maximumAge: 60_000 }
     );
 
-    // 页面切回前台时重算一次（跨天/跨时区）
+    // 页面重新可见且仍处于 system 时，再尝试按太阳位置调整一次
     const onVis = () => {
-      if (document.visibilityState === "visible") {
-        if (timerRef.current) window.clearTimeout(timerRef.current);
-        navigator.geolocation.getCurrentPosition(
-          (pos) => applyThemeBySun(pos.coords.latitude, pos.coords.longitude),
-          fallbackToSystem
-        );
-      }
+      if (document.visibilityState !== "visible") return;
+      if (theme !== "system") return;
+
+      navigator.geolocation.getCurrentPosition(
+        (pos) => applyOnce(pos.coords.latitude, pos.coords.longitude),
+        () => fallbackToSystem()
+      );
     };
+
     document.addEventListener("visibilitychange", onVis);
+    return () => document.removeEventListener("visibilitychange", onVis);
+  }, [mounted, theme, resolvedTheme, setTheme]);
 
-    return () => {
-      cancelled = true;
-      document.removeEventListener("visibilitychange", onVis);
-      if (timerRef.current) window.clearTimeout(timerRef.current);
-    };
-  }, [setTheme]);
-
+  // 渲染什么都行，这个组件只是副作用
   return null;
 }

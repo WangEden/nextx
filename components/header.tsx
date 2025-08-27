@@ -4,19 +4,21 @@ import { Button } from "./ui/button";
 import { Menu, Moon, Sun, X, Home, Info, Briefcase, Mail, ArrowRight } from "lucide-react";
 import { useState, useEffect, useRef} from "react";
 import Link from "next/link";
+import { useTheme } from "next-themes";           // ✅ 用这个
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
 import elaina2 from "@/public/imgs/elaina2.jpg";
 
 export default function Header() {
   const [mounted, setMounted] = useState(false);   // 避免 SSR 水合不一致
-  const [isDark, setIsDark] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();  // ✅ 由 next-themes 管
+  // const [isDark, setIsDark] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // 仅在客户端读取/同步当前主题
   useEffect(() => {
     setMounted(true);
-    setIsDark(document.documentElement.classList.contains("dark"));
+    // setIsDark(document.documentElement.classList.contains("dark"));
   }, []);
 
   // 点击外部关闭 dropdown
@@ -31,10 +33,9 @@ export default function Header() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isDropdownOpen]);
 
-  const toggleDarkMode = () => {
+  const toggleTheme = () => {
     if (!mounted) return;
-    document.documentElement.classList.toggle("dark");
-    setIsDark((v) => !v);
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");  // ✅ 不再直接改 documentElement
   };
 
   const toggleDropdown = () => setIsDropdownOpen((v) => !v);
@@ -86,18 +87,18 @@ export default function Header() {
                 </div>
               </nav>
 
-              {/* 切换主题 */}
-              {mounted && (
-                <Button
-                  aria-label="Toggle theme"
-                  variant="ghost"
-                  size="icon"
-                  onClick={toggleDarkMode}
-                  className="w-9 h-9 cursor-pointer hover:bg-black/10 hover:text-white transition-all duration-300"
-                >
-                  {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-                </Button>
-              )}
+            {/* 切换主题（mounted 后再渲染，避免水合不一致） */}
+            {mounted && (
+              <Button
+                aria-label="Toggle theme"
+                variant="ghost"
+                size="icon"
+                onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+                className="w-9 h-9 cursor-pointer hover:bg-black/10 hover:text-white transition-all duration-300"
+              >
+                {resolvedTheme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              </Button>
+            )}
 
             {/* 移动端下拉菜单（取代侧边栏抽屉） */}
             <div className="relative md:hidden" ref={dropdownRef}>
