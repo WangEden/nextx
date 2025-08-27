@@ -11,12 +11,12 @@ export function HeroSection() {
           <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
             <div className="text-center lg:text-left lg:grid lg:grid-cols-12 lg:gap-8">
               <div className="lg:col-span-6 animate-in slide-in-from-bottom-8 duration-800">
-                <div className="flex items-center justify-center lg:justify-start mb-4">
+                {/* <div className="flex items-center justify-center lg:justify-start mb-4">
                   <div className="flex items-center space-x-2 bg-gradient-primary px-4 py-2 rounded-full text-white text-sm cursor-pointer hover:bg-gradient-secondary transition-all duration-300">
                     <Sparkles className="h-4 w-4" />
                     <span>新的特性可用</span>
                   </div>
-                </div>
+                </div> */}
 
                 <h1 className="text-4xl tracking-tight sm:text-5xl md:text-6xl">
                   <span className="block">Build amazing</span>
@@ -57,12 +57,14 @@ export function HeroSection() {
               </div>
 
               <div className="mt-12 lg:mt-0 lg:col-span-6 animate-in slide-in-from-right-8 duration-800 delay-200">
-                <div className="relative cursor-grab active:cursor-grabbing">
+                <div className="relative">
                   <div className="absolute -inset-4 bg-gradient-primary/20 rounded-lg blur opacity-30"></div>
                   <ImageWithFallback
                     src={elaina1.src}
                     alt="Team collaboration"
-                    className="relative w-full h-auto rounded-lg shadow-2xl hover:shadow-3xl transition-shadow duration-300"
+                    className="relative w-full h-auto rounded-lg shadow-2xl hover:shadow-3xl transform transition duration-500 ease-elastic hover:scale-105"
+                    // className="relative w-full h-auto rounded-lg shadow-2xl hover:shadow-3xl transform transition duration-500 hover:scale-105"
+                    // className="relative w-full h-auto rounded-lg shadow-2xl hover:shadow-3xl transition-shadow duration-300"
                   />
                   
                   {/* Floating elements */}

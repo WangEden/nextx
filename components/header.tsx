@@ -4,6 +4,8 @@ import { Button } from "./ui/button";
 import { Menu, Moon, Sun, X, Home, Info, Briefcase, Mail, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
+import elaina2 from "@/public/imgs/elaina2.jpg";
 
 export default function Header() {
   const [mounted, setMounted] = useState(false);   // 避免 SSR 水合不一致
@@ -47,10 +49,18 @@ export default function Header() {
       <header className="sticky top-0 z-50 w-full border-b border-border/20 backdrop-blur-md">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
-            <div className="flex items-center cursor-pointer" onClick={closePanel}>
+            <div className="flex items-center cursor-pointer ml-8" onClick={closePanel}>
+              <div className="flex-shrink-0 mr-3">
+                <ImageWithFallback
+                  src={elaina2.src}
+                  alt="avatar"
+                  className="h-10 w-10 rounded-full transform transition duration-500 ease-elastic hover:scale-110"
+                />
+              </div>
+              
               <div className="flex-shrink-0">
                 <h1 className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                  <Link href="/">主页</Link>
+                  <Link href="/">榴莲桂花糕</Link>
                 </h1>
               </div>
             </div>

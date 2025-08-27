@@ -42,7 +42,7 @@ export function AboutSection() {
                   <ImageWithFallback
                     src={elaina2.src}
                     alt="Customer testimonial"
-                    className="h-10 w-10 rounded-full"
+                    className="h-10 w-10 rounded-full transform transition duration-500 ease-elastic hover:scale-110"
                   />
                 </div>
                 <div className="ml-4">
@@ -57,7 +57,7 @@ export function AboutSection() {
             <ImageWithFallback
               src={elaina2.src}
               alt="Team working together"
-              className="w-full h-auto rounded-lg shadow-xl"
+              className="w-full h-auto rounded-lg shadow-xl transform transition duration-500 ease-elastic hover:scale-105"
             />
           </div>
         </div>
