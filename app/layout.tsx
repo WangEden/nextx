@@ -1,12 +1,12 @@
 // layout.tsx
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
 import { ThemeProvider } from "next-themes";
 import AutoSunsetTheme from "@/components/function/AutoSunsetTheme";
-
 import Header from "@/components/header"
 import { Footer } from "@/components/footer";
+import PwaSplashLinks from "@/components/PwaSplashLinks";
 
 // 字体：无衬线（正文）— 纤黑/常规/中等
 const wenkai = localFont({
@@ -37,6 +37,31 @@ const wenkaiMono = localFont({
 export const metadata: Metadata = {
   title: "榴莲桂花糕",
   description: "WangEden WebSite",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,                     // 等价 <meta name="apple-mobile-web-app-capable" content="yes">
+    statusBarStyle: "black-translucent",
+    title: "WangEden",                  // <meta name="apple-mobile-web-app-title">
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-192.png",   sizes: "192x192", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+    shortcut: ["/favicon.ico"],
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)",  color: "#000000" },
+  ],
 };
 
 export default function RootLayout({
@@ -46,7 +71,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh" suppressHydrationWarning className={`${wenkai.variable} ${wenkaiMono.variable}`}>
-      <body className={`${wenkai.className} ${wenkaiMono.className} min-h-screen cursor-custom antialiased overflow-x-hidden`}>
+      <head>
+        <PwaSplashLinks />
+      </head>
+      <body className={`${wenkai.className} ${wenkaiMono.className} min-h-screen cursor-custom antialiased overflow-x-hidden pt-safe pb-safe`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <AutoSunsetTheme />
           <Header />

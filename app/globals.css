@@ -353,6 +353,12 @@
     background: linear-gradient(90deg, transparent, var(--primary), transparent);
     animation: loading-slide 1.2s ease-in-out infinite;
   }
+
+  /* 全屏时适配刘海屏安全区 */
+  .pt-safe { padding-top: env(safe-area-inset-top); }
+  .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+  .pl-safe { padding-left: env(safe-area-inset-left); }
+  .pr-safe { padding-right: env(safe-area-inset-right); }
 }
 
 html {
