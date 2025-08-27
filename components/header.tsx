@@ -65,23 +65,23 @@ export default function Header() {
               </div>
             </div>
 
-            {/* 导航栏 */}
-            <nav className="hidden md:block">
-              <div className="flex items-center space-x-8">
-                {navItems.map((item) => (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    className="text-foreground hover:text-primary transition-colors cursor-pointer relative group"
-                  >
-                    {item.label}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300" />
-                  </a>
-                ))}
-              </div>
-            </nav>
-
             <div className="flex items-center space-x-4">
+              {/* 导航栏 */}
+              <nav className="hidden md:block">
+                <div className="flex items-center space-x-8">
+                  {navItems.map((item) => (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      className="text-foreground hover:text-primary transition-colors cursor-pointer relative group"
+                    >
+                      {item.label}
+                      <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300" />
+                    </a>
+                  ))}
+                </div>
+              </nav>
+
               {/* mounted 后再渲染图标，避免水合闪烁 */}
               {/* 切换主题 */}
               {mounted && (
@@ -108,6 +108,7 @@ export default function Header() {
                 <Menu className="h-4 w-4" />
               </Button>
             </div>
+
           </div>
         </div>
       </header>
