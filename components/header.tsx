@@ -96,7 +96,7 @@ export default function Header() {
                 onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
                 className="w-9 h-9 cursor-pointer hover:bg-black/10 hover:text-white transition-all duration-300"
               >
-                {resolvedTheme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                {resolvedTheme === "light" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
               </Button>
             )}
 
