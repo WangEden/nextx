@@ -65,7 +65,7 @@ export default function Header() {
               
               <div className="flex-shrink-0">
                 <h1 className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                  <Link href="/">榴莲桂花糕</Link>
+                  <Link href="/">榴莲桂花糕的杂货铺</Link>
                 </h1>
               </div>
             </div>

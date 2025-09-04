@@ -16,19 +16,24 @@ export default function AutoSunsetTheme() {
 
   // Hook 2：仅当 mounted 且 theme === 'system' 时，根据日出日落设置一次
   useEffect(() => {
+    console.log("effect run", { mounted, theme, resolvedTheme });
     if (!mounted) return;       // 确保在客户端
-    if (theme !== "system") return; // 用户已手动选择则不干预
-
+    if (theme !== "system") {
+      console.log("skip: theme is not system");
+      return; // 用户已手动选择则不干预
+    }
     const applyOnce = (lat: number, lon: number) => {
       const now = new Date();
       const { sunrise, sunset } = SunCalc.getTimes(now, lat, lon);
       const isNight = now < sunrise || now >= sunset;
       const target: "light" | "dark" = isNight ? "dark" : "light";
+      console.log("isNight: ", isNight);
 
       if (resolvedTheme !== target) setTheme(target); // 只有不一致才切，避免闪烁
     };
 
     const fallbackToSystem = () => {
+      console.log("geo failed, fallback system");
       // 不做强制设置，保持 system（让系统自己管）
     };
 

@@ -35,7 +35,7 @@ const wenkaiMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "榴莲桂花糕",
+  title: "榴莲桂花糕的杂货铺",
   description: "WangEden WebSite",
   manifest: "/manifest.json",
   appleWebApp: {
@@ -75,7 +75,7 @@ export default function RootLayout({
         <PwaSplashLinks />
       </head>
       <body className={`${wenkai.className} ${wenkaiMono.className} min-h-screen cursor-custom antialiased overflow-x-hidden pt-safe pb-safe`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem storageKey="theme" disableTransitionOnChange>
           <AutoSunsetTheme />
           <Header />
           {children}
