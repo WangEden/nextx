@@ -3,10 +3,11 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
 import { ThemeProvider } from "next-themes";
-import AutoSunsetTheme from "@/components/function/AutoSunsetTheme";
+// import AutoSunsetTheme from "@/components/function/AutoSunsetTheme";
 import Header from "@/components/header"
 import { Footer } from "@/components/footer";
 import PwaSplashLinks from "@/components/PwaSplashLinks";
+// import { useEffect } from "react";
 
 // 字体：无衬线（正文）— 纤黑/常规/中等
 const wenkai = localFont({
@@ -75,8 +76,14 @@ export default function RootLayout({
         <PwaSplashLinks />
       </head>
       <body className={`${wenkai.className} ${wenkaiMono.className} min-h-screen cursor-custom antialiased overflow-x-hidden pt-safe pb-safe`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem storageKey="theme" disableTransitionOnChange>
-          <AutoSunsetTheme />
+        <ThemeProvider 
+          attribute="class"   // 使用 class 切换主题
+          defaultTheme="system"   // 跟随系统
+          enableSystem           // 开启系统模式检测
+          // disableStorage={true}   // 禁用 localStorage
+          // disableTransitionOnChange // 切换主题时禁用 CSS 过渡
+        >
+          {/* 移除 AutoSunsetTheme */}
           <Header />
           {children}
           <Footer />

@@ -1,3 +1,4 @@
+// Header.tsx
 "use client";
 
 import { Button } from "./ui/button";
@@ -10,7 +11,7 @@ import elaina2 from "@/public/imgs/elaina2.jpg";
 
 export default function Header() {
   const [mounted, setMounted] = useState(false);   // 避免 SSR 水合不一致
-  const { resolvedTheme, setTheme } = useTheme();  // ✅ 由 next-themes 管
+  const { resolvedTheme, setTheme } = useTheme();  // ✅ 由 next-themes 管理
   // const [isDark, setIsDark] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -18,7 +19,6 @@ export default function Header() {
   // 仅在客户端读取/同步当前主题
   useEffect(() => {
     setMounted(true);
-    // setIsDark(document.documentElement.classList.contains("dark"));
   }, []);
 
   // 点击外部关闭 dropdown
@@ -35,7 +35,19 @@ export default function Header() {
 
   const toggleTheme = () => {
     if (!mounted) return;
-    setTheme(resolvedTheme === "dark" ? "light" : "dark");  // ✅ 不再直接改 documentElement
+    resolvedTheme === "light" ? setTheme("dark") : setTheme("light");
+    localStorage.removeItem("theme");
+    // // 手动切换主题，通过修改 document.documentElement 的 class 来控制主题
+    // const currentTheme = document.documentElement.classList.contains("dark") ? "dark" : "light";
+    // if (currentTheme === "dark") {
+    //   document.documentElement.classList.remove("dark");
+    //   document.documentElement.classList.add("light");
+    //   setIsDark(false);
+    // } else {
+    //   document.documentElement.classList.remove("light");
+    //   document.documentElement.classList.add("dark");
+    //   setIsDark(true);
+    // }
   };
 
   const toggleDropdown = () => setIsDropdownOpen((v) => !v);
@@ -93,7 +105,7 @@ export default function Header() {
                 aria-label="Toggle theme"
                 variant="ghost"
                 size="icon"
-                onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+                onClick={() => toggleTheme()}
                 className="w-9 h-9 cursor-pointer hover:bg-black/10 hover:text-white transition-all duration-300"
               >
                 {resolvedTheme === "light" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
