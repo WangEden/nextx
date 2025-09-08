@@ -90,6 +90,11 @@ div p strong {
 	color: var(--cus-inline-code-text);
 }
 
+.markdown-rendered p {
+  margin: 0 0 1em 0; /* 给段落之间留空隙 */
+  line-height: 1.6;
+}
+
 .markdown-rendered pre{
 	border:1px solid var(--cus-code-block-border);
 }
