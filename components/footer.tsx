@@ -43,10 +43,9 @@ export function Footer() {
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <div className="space-y-8 xl:col-span-1">
             <div>
-              <h3 className="text-lg font-bold text-primary">Your Brand</h3>
+              <h3 className="text-lg font-bold text-primary">联系我</h3>
               <p className="mt-2 text-sm text-muted-foreground">
-                Building the future of digital experiences with innovative technology 
-                and exceptional design.
+                如有任何问题或建议，欢迎通过以下途径联系我！
               </p>
             </div>
             <div className="flex space-x-6">
@@ -136,7 +135,7 @@ export function Footer() {
         </div>
         <div className="mt-12 border-t border-border/20 pt-8">
           <p className="text-sm text-muted-foreground text-center">
-            &copy; {new Date().getFullYear()} Your Brand. All rights reserved.
+            &copy; {new Date().getFullYear()} WangEden. 版权所有.
           </p>
         </div>
       </div>

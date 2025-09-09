@@ -1,9 +1,15 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, Sparkles } from "lucide-react";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
+import type { PostMeta } from "@/lib/posts";
 import elaina1 from "@/public/imgs/elaina1.jpg";
+import { useRouter } from "next/navigation";
 
-export function HeroSection() {
+export function HeroSection({ posts }: { posts: PostMeta[] }) {
+  const router = useRouter();
+
   return (
     <section id="home" className="relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -25,10 +31,13 @@ export function HeroSection() {
                   </span>
                 </h1>
                 <p className="mt-3 text-base text-muted-foreground sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                  专注于分享各个领域的技术知识，目的是成为一个十边形战士！
+                  专注于分享各个领域的技术知识，老王的目标是成为一个九边形战士
                 </p>
                 <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start gap-4">
-                  <Button size="lg" className="w-full sm:w-auto bg-gradient-primary hover:bg-gradient-secondary transition-all duration-300 cursor-pointer shadow-lg hover:shadow-xl hover:scale-105 transform">
+                  <Button size="lg" className="w-full sm:w-auto bg-gradient-primary hover:bg-gradient-secondary transition-all duration-300 cursor-pointer shadow-lg hover:shadow-xl hover:scale-105 transform"
+                    onClick={() => { 
+                      router.push(`/archives/${posts[0].slug}`);
+                    }}>
                     随便看看
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
@@ -39,18 +48,19 @@ export function HeroSection() {
                 </div>
 
                 {/* Stats */}
+                {/* Web、人工智能、嵌入式、视觉、硬件、机械、金融、数学、英语*/}
                 <div className="mt-8 flex items-center justify-center lg:justify-start space-x-8 text-sm text-muted-foreground animate-in slide-in-from-bottom-4 duration-800 delay-400">
                   <div className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-gradient-primary rounded-full"></div>
-                    <span>10M+ Users</span>
+                    <span>Web、人工智能、金融</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-gradient-secondary rounded-full"></div>
-                    <span>99.9% Uptime</span>
+                    <span>嵌入式、视觉、硬件、机械</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-gradient-accent rounded-full"></div>
-                    <span>24/7 Support</span>
+                    <span>数学、英语</span>
                   </div>
                 </div>
               </div>

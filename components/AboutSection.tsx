@@ -2,10 +2,10 @@ import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
 import elaina2 from "@/public/imgs/elaina2.jpg";
 
 const stats = [
-  { number: "10M+", label: "Users worldwide" },
-  { number: "99.9%", label: "Uptime guarantee" },
-  { number: "150+", label: "Countries served" },
-  { number: "24/7", label: "Expert support" }
+  { number: "10M+", label: "累积文章字数" },
+  { number: "99.9%", label: "平均文章完读率" },
+  { number: "150+", label: "累积文章数量" },
+  { number: "24/7", label: "在线时段" }
 ];
 
 export function AboutSection() {
@@ -15,12 +15,10 @@ export function AboutSection() {
         <div className="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
           <div>
             <h2 className="text-3xl sm:text-4xl">
-              Trusted by millions of users worldwide
+              WangEden
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              We've been building exceptional digital experiences for over a decade. 
-              Our platform powers some of the world's most innovative companies and helps 
-              teams ship better products faster.
+              老王，一个热衷于技术和创新的开发者，致力于为用户提供卓越的数字体验。
             </p>
             
             <div className="mt-8 grid grid-cols-2 gap-6">
@@ -46,8 +44,8 @@ export function AboutSection() {
                   />
                 </div>
                 <div className="ml-4">
-                  <div className="text-sm font-medium">Alex Chen</div>
-                  <div className="text-sm text-muted-foreground">CTO, TechCorp</div>
+                  <div className="text-sm font-medium">WangEden</div>
+                  <div className="text-sm text-muted-foreground">Boss, 老王工作室</div>
                 </div>
               </div>
             </div>
