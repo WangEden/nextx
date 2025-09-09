@@ -47,10 +47,10 @@ export function FeaturesSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl sm:text-4xl">
-            往期回顾
+            朝花夕拾
           </h2>
           <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-            Everything you need to build modern, scalable applications with confidence.
+            一切事物都值得被记录
           </p>
         </div>
 

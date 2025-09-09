@@ -19,23 +19,22 @@ export function HeroSection() {
                 </div> */}
 
                 <h1 className="text-4xl tracking-tight sm:text-5xl md:text-6xl">
-                  <span className="block">Build amazing</span>
+                  <span className="block">欢迎光临</span>
                   <span className="block bg-gradient-primary bg-clip-text text-transparent">
-                    digital experiences
+                    老王的杂货铺
                   </span>
                 </h1>
                 <p className="mt-3 text-base text-muted-foreground sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                  Create stunning websites and applications with our modern tools and expert guidance. 
-                  Transform your ideas into reality with cutting-edge technology.
+                  专注于分享各个领域的技术知识，目的是成为一个十边形战士！
                 </p>
                 <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start gap-4">
                   <Button size="lg" className="w-full sm:w-auto bg-gradient-primary hover:bg-gradient-secondary transition-all duration-300 cursor-pointer shadow-lg hover:shadow-xl hover:scale-105 transform">
-                    开始使用
+                    随便看看
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                   <Button variant="outline" size="lg" className="mt-3 sm:mt-0 w-full sm:w-auto border-2 hover:bg-gradient-primary hover:text-white hover:border-transparent transition-all duration-300 cursor-pointer hover:scale-105 transform">
                     <Play className="mr-2 h-4 w-4" />
-                    观看演示
+                    我的介绍
                   </Button>
                 </div>
 
