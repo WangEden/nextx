@@ -1,3 +1,5 @@
+"use client";
+
 // components/blog/Sidebar.tsx
 import React from "react";
 import { Card } from "@/components/ui/card";
@@ -8,9 +10,10 @@ import { Eye, Heart, MessageCircle, Share2, User } from "lucide-react";
 interface SidebarProps {
   author: { name: string; role: string; description: string };
   stats: { views: number; likes: number; comments: number; shares: number };
+  onTriggerPopup?: () => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ author, stats }) => (
+export const Sidebar: React.FC<SidebarProps> = ({ author, stats, onTriggerPopup }) => (
   <div className="space-y-6">
     {/* Author Info */}
     <Card className="p-6 bg-white/50 dark:bg-black/20 backdrop-blur-sm border-white/20 dark:border-white/10">
@@ -26,7 +29,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ author, stats }) => (
         </div>
       </div>
       <p className="text-sm text-muted-foreground mb-4">{author.description}</p>
-      <Button variant="outline" size="sm" className="w-full">Follow Author</Button>
+      <Button variant="outline" size="sm" className="w-full" onClick={onTriggerPopup}>Follow Author</Button>
     </Card>
 
     {/* Stats */}

@@ -21,6 +21,7 @@ import {
   TrendingUp
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { PopupNotification } from "@/components/PopupNotification";
 
 // 把你贴的 BlogListPage 改成接收 posts，从 PostMeta 渲染；跳转用 Link/router
 export default function BlogList({ posts }: { posts: PostMeta[] }) {
@@ -35,6 +36,16 @@ export default function BlogList({ posts }: { posts: PostMeta[] }) {
 
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const router = useRouter();
+
+  const [notification, setNotification] = useState(false);
+
+  const triggerPopup = () => {
+    setNotification(true);
+  }
+
+  const handlePopupComplete = () => {
+    setNotification(false);
+  }
 
   // …把你原来的 UI 贴过来…
   // 关键改动：卡片点击的跳转
@@ -185,8 +196,26 @@ export default function BlogList({ posts }: { posts: PostMeta[] }) {
               关于各种技术、开发、和设计的见解、教程和想法
             </p>
           </div>
+        </div>
+      </section>
 
-          {/* Search and Controls */}
+      {/* Featured Articles */}
+      {featured.length > 0 && (
+        <section className="pb-16">
+          <div className="container mx-auto px-6 lg:px-12">
+            <h2 className="text-2xl font-semibold mb-8">Featured Articles</h2>
+            <div className="grid lg:grid-cols-3 gap-8">
+              {featured.map((post) => (
+                <BlogCard key={post.slug} post={post} featured />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section className="py-16">
+        <div className="container mx-auto px-6 lg:px-12">
+                 {/* Search and Controls */}
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-12">
             <div className="relative flex-1 max-w-md">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
@@ -233,20 +262,6 @@ export default function BlogList({ posts }: { posts: PostMeta[] }) {
         </div>
       </section>
 
-      {/* Featured Articles */}
-      {featured.length > 0 && (
-        <section className="pb-16">
-          <div className="container mx-auto px-6 lg:px-12">
-            <h2 className="text-2xl font-semibold mb-8">Featured Articles</h2>
-            <div className="grid lg:grid-cols-3 gap-8">
-              {featured.map((post) => (
-                <BlogCard key={post.slug} post={post} featured />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
 
       {/* Regular Articles */}
       <section className="pb-16">
@@ -286,13 +301,20 @@ export default function BlogList({ posts }: { posts: PostMeta[] }) {
       {regular.length > 0 && (
         <section className="pb-16">
           <div className="container mx-auto px-6 lg:px-12 text-center">
-            <Button variant="outline" size="lg" className="gap-2">
+            <Button variant="outline" size="lg" className="gap-2" onClick={triggerPopup}>
               浏览更多
               <ArrowRight className="w-4 h-4" />
             </Button>
           </div>
         </section>
       )}
+
+      <PopupNotification
+        isVisible={notification}
+        onComplete={handlePopupComplete}
+        message="暂时没有更多了"
+        type="info"
+      />
     </div>
   );
 }
