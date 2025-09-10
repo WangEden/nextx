@@ -49,7 +49,7 @@ div p strong {
 	--cus-highlight-cursor-line: rgba(245,204,142,0.12);
 }
 
-.theme-dark{
+.theme-dark, .dark{
 	--text-normal: #EEEEEE;
 	--code-background: #1a1a1a;
 	--cus-inline-code-text: #f3b37f;
@@ -314,3 +314,32 @@ thead {
 .cm-header-6::before {
     content: "♪⁶ ";
 }
+
+/* —— Dark/Light 共用的表格配色，统一走 CSS 变量 —— */
+.markdown-rendered table {
+  background: var(--card);
+  color: var(--foreground);
+}
+
+.markdown-rendered th,
+.markdown-rendered td {
+  border: 1px solid var(--border);   /* 原来是 #ccc */
+}
+
+/* 表头与斑马纹：用你已经定义过的自定义变量 */
+.markdown-rendered thead {
+  background-color: var(--cus-table-header);   /* 替换掉 #f8fafc */
+  font-weight: 600;
+}
+
+.markdown-rendered tbody tr:nth-child(odd) {
+  background-color: var(--cus-table-gap-tr);   /* 替换掉 #f9fafb */
+}
+
+/* 如果喜欢偶数行是配色，也可以用 even：*/
+/* .markdown-rendered tbody tr:nth-child(even) { background-color: var(--cus-table-gap-tr); } */
+
+/* 旧的无作用域规则会“顶掉”暗黑：把它们限定到 .markdown-rendered 再保留 */
+.markdown-rendered table thead { background-color: var(--cus-table-header); }
+.markdown-rendered table tr:nth-child(2n),
+.markdown-rendered thead { background-color: var(--cus-table-gap-tr); }

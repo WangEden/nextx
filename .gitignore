@@ -13,6 +13,7 @@
 # private
 /content/posts/*
 /public/imgs/assets/*
+/public/imgs/articles/default/*
 
 # testing
 /coverage
