@@ -11,7 +11,7 @@
 !.yarn/versions
 
 # private
-/content
+/content/posts/*
 
 # testing
 /coverage
