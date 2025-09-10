@@ -19,7 +19,7 @@ export const ArticleContent: React.FC<ArticleContentProps> = ({
   likes, 
   comments 
 }) => (
-  <article className="prose prose-lg max-w-none">
+  <article className="prose prose-lg max-w-none min-w-0">
     {/* Article header */}
     <div className="mb-8 p-6 bg-white/50 dark:bg-black/20 rounded-2xl backdrop-blur-sm border border-white/20 dark:border-white/10">
       <div className="flex items-center gap-4 mb-4">
@@ -44,7 +44,7 @@ export const ArticleContent: React.FC<ArticleContentProps> = ({
     </div>
 
     {/* Article body */}
-    <div className="space-y-8 text-foreground">
+    <div className="space-y-8 text-foreground w-full max-w-full min-w-0">
 
       <MarkdownRenderer content={content} extractStrategy="after-first-dash" />
     </div>

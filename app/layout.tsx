@@ -8,6 +8,8 @@ import Header from "@/components/header"
 import { Footer } from "@/components/footer";
 import PwaSplashLinks from "@/components/PwaSplashLinks";
 // import { useEffect } from "react";
+// app/layout.tsx
+import 'katex/dist/katex.min.css';
 
 // 字体：无衬线（正文）— 纤黑/常规/中等
 const wenkai = localFont({
@@ -36,7 +38,7 @@ const wenkaiMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "榴莲桂花糕的杂货铺",
+  title: "榴莲桂花糕",
   description: "WangEden WebSite",
   manifest: "/manifest.json",
   appleWebApp: {

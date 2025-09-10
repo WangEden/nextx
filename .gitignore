@@ -12,6 +12,7 @@
 
 # private
 /content/posts/*
+/public/imgs/assets/*
 
 # testing
 /coverage

@@ -27,7 +27,7 @@ const navigation = {
 };
 
 const socialLinks = [
-  { name: "GitHub", href: "https://github.com/WangEden", icon: Github },
+  { name: "GitHub", href: "https://github.com/WangEden/nextx", icon: Github },
   { name: "X", href: "https://github.com/WangEden", icon: X },
   { name: "LinkedIn", href: "https://github.com/WangEden", icon: Linkedin },
   { name: "Email", href: "https://github.com/WangEden", icon: Mail }

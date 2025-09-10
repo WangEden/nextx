@@ -105,6 +105,102 @@
     #000000 100%);
 }
 
+/* Code block syntax highlighting */
+:root {
+  --syntax-comment: #6b7280;
+  --syntax-keyword: #8b5cf6;
+  --syntax-string: #10b981;
+  --syntax-number: #f59e0b;
+  --syntax-boolean: #ef4444;
+  --syntax-function: #3b82f6;
+  --code-bg: #f8fafc;
+  --code-border: #e2e8f0;
+}
+
+.dark {
+  --syntax-comment: #9ca3af;
+  --syntax-keyword: #a78bfa;
+  --syntax-string: #34d399;
+  --syntax-number: #fbbf24;
+  --syntax-boolean: #f87171;
+  --syntax-function: #60a5fa;
+  --code-bg: #1e293b;
+  --code-border: #374151;
+}
+
+/* 代码块容器，避免撑出屏幕 */
+.code-block-wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* iOS 惯性滚动 */
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  margin: 1rem 0;
+}
+
+/* pre 本身的约束 */
+.code-block-wrapper pre {
+  min-width: 100%;    /* 至少和容器一样宽 */
+  max-width: none;    /* 不要被父容器限制 */
+  overflow-x: auto;   /* 代码内部滚动 */
+  white-space: pre;   /* 保持原始换行，不折行 */
+}
+
+/* Syntax highlighting styles */
+.syntax-comment {
+  color: var(--syntax-comment);
+  font-style: italic;
+}
+
+.syntax-keyword {
+  color: var(--syntax-keyword);
+  font-weight: 500;
+}
+
+.syntax-string {
+  color: var(--syntax-string);
+}
+
+.syntax-number {
+  color: var(--syntax-number);
+}
+
+.syntax-boolean {
+  color: var(--syntax-boolean);
+  font-weight: 500;
+}
+
+.syntax-function {
+  color: var(--syntax-function);
+}
+
+/* Enhanced code block styles */
+.syntax-highlighted {
+  display: block;
+  line-height: 1.6;
+}
+
+/* Custom scrollbar for code blocks */
+pre::-webkit-scrollbar {
+  height: 8px;
+}
+
+pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+pre::-webkit-scrollbar-thumb {
+  background: var(--muted-foreground);
+  border-radius: 4px;
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+  background: var(--foreground);
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

@@ -34,7 +34,7 @@ export function ArticlePage({ post }: { post: Post }) {
 
       <section className="py-16 bg-radial">
         <div className="container mx-auto px-6 lg:px-12 grid lg:grid-cols-3 gap-12">
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 min-w-0">
             <ArticleContent
               author={{ name: post.author, role: "" }}
               content={post.content}

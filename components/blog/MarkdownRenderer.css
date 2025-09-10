@@ -76,48 +76,6 @@ div p strong {
 }
 /* blockquote END*/
 
-
-/* code block BEGIN*/
-.markdown-source-view.mod-cm6 .code-block-flair:hover, .markdown-rendered button.copy-code-button:hover{
-	background-color: hsla(var(--interactive-accent-hsl), 0.1);
-}
-
-.cm-s-obsidian span.cm-inline-code{
-	color: var(--cus-inline-code-text);
-}
-
-.markdown-rendered p code{
-	color: var(--cus-inline-code-text);
-}
-
-.markdown-rendered p {
-  margin: 0 0 1em 0; /* 给段落之间留空隙 */
-  line-height: 1.6;
-}
-
-.markdown-rendered pre{
-	border:1px solid var(--cus-code-block-border);
-}
-
-.cm-s-obsidian div.HyperMD-codeblock-begin-bg{
-	border-top: 1px solid var(--cus-code-block-border);
-}
-
-.cm-s-obsidian div.HyperMD-codeblock-end-bg{
-	border-bottom: 1px solid var(--cus-code-block-border);
-}
-
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock{
-	border-left: 1px solid var(--cus-code-block-border);
-	border-right: 1px solid var(--cus-code-block-border);
-}
-
-.markdown-rendered li code{
-	color: var(--cus-inline-code-text);
-}
-/* code block END*/
-
-
 /* table BEGIN*/
 table thead{
 	background-color: var(--cus-table-header);
@@ -141,6 +99,16 @@ thead {
 
 .markdown-preview-view h1, .markdown-preview-view h2, .markdown-preview-view h3, .markdown-preview-view h4, .markdown-preview-view h5, .markdown-preview-view h6{
 	position:relative;
+}
+
+/* 目录锚点的滚动预留（如果有 sticky header） */
+.markdown-rendered h1,
+.markdown-rendered h2,
+.markdown-rendered h3,
+.markdown-rendered h4,
+.markdown-rendered h5,
+.markdown-rendered h6 {
+  scroll-margin-top: var(--anchor-offset, 80px);
 }
 
 /* hover 时显示 h1~h6 标记 */
@@ -222,6 +190,86 @@ thead {
     top: -11px;
 }
 /*Header END*/
+
+/* 统一样式：wikilink 链接 */
+.markdown-rendered a.wikilink {
+  color: #2563eb;            /* 默认蓝色 */
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-style: dotted; /* 虚线下划线，看起来更像“内部跳转” */
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.markdown-rendered a.wikilink:hover {
+  color: #1d4ed8;            /* hover 深蓝色 */
+  background-color: #e0f2fe; /* 浅蓝底 */
+  border-radius: 4px;
+  padding: 0 2px;
+}
+
+.markdown-rendered a.wikilink:active {
+  color: #0f172a;            /* 点击瞬间更深 */
+  background-color: #bae6fd;
+}
+
+/* KaTeX 小幅优化（可按需调整） */
+.markdown-rendered .katex { font-size: 1em; }           /* 行内公式与文本同高 */
+.markdown-rendered .katex-display { margin: 0.75rem 0; }/* 块级公式的上下间距 */
+
+.markdown-rendered table {
+  border-collapse: collapse;
+  margin: 1rem 0;
+  width: 100%;
+  text-align: center;
+}
+
+.markdown-rendered th,
+.markdown-rendered td {
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.markdown-rendered thead {
+  background-color: #f8fafc;
+  font-weight: 600;
+}
+
+.markdown-rendered tbody tr:nth-child(odd) {
+  background-color: #f9fafb;
+}
+
+/* 让表格内公式居中 */
+.markdown-rendered td .katex,
+.markdown-rendered th .katex {
+  display: inline-block;
+  text-align: center;
+}
+
+/* 经典荧光笔效果 */
+.markdown-rendered mark.hl {
+  background: linear-gradient(transparent 55%, rgba(255, 238, 88, 0.9) 0) no-repeat;
+  border-radius: 2px;
+  padding: 0 .12em;
+  /* 让文字颜色不变 */
+  color: inherit;
+}
+
+/* 深色主题适配（按需） */
+:root.dark .markdown-rendered mark.hl {
+  background: linear-gradient(transparent 55%, rgba(255, 214, 10, 0.75) 0) no-repeat;
+}
+
+/* 如果你更喜欢纯色块，可用这一版（取消上面两段） */
+/*
+.markdown-rendered mark.hl {
+  background-color: #ffef62;
+  border-radius: 3px;
+  padding: 0 .2em;
+}
+*/
 
 /*Cursor line BEGIN*/
 .cm-active.cm-line{
