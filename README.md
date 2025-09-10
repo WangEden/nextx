@@ -2,4 +2,4 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 基于NextJs开发的一个Web应用, 还在开发阶段
 
-网址：wangeden.top
+网址：https://wangeden.top
