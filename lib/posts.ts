@@ -23,7 +23,7 @@ const CONTENT_DIR = "/home/eden/OneDrive/Apps/remotely-save/笔记/WebArchives";
 // 允许的图片后缀
 const ALLOWED_EXTS = [".jpg", ".jpeg", ".png", ".webp", ".gif"];
 // 默认封面所在 URL 目录（对应文件系统的 public 子目录）
-const DEFAULT_COVER_DIR_URL = "/imgs/articleCover/default";
+const DEFAULT_COVER_DIR_URL = "/imgs/default";
 const DEFAULT_COVER_DIR_FS = path.join(process.cwd(), "public", "imgs", "articleCover", "default");
 
 // 仅把连续空白换成 -，保留中文
