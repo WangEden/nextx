@@ -82,6 +82,7 @@ export default function RootLayout({
           attribute="class"   // 使用 class 切换主题
           defaultTheme="system"   // 跟随系统
           enableSystem           // 开启系统模式检测
+          storageKey="theme-v1"
           // disableStorage={true}   // 禁用 localStorage
           // disableTransitionOnChange // 切换主题时禁用 CSS 过渡
         >

@@ -17,7 +17,8 @@ export type PostMeta = {
 };
 export type Post = PostMeta & { content: string };
 
-const CONTENT_DIR = path.join(process.cwd(), "content", "posts");
+// const CONTENT_DIR = path.join(process.cwd(), "content", "posts");
+const CONTENT_DIR = "/home/eden/OneDrive/Apps/remotely-save/笔记/WebArchives";
 
 // 允许的图片后缀
 const ALLOWED_EXTS = [".jpg", ".jpeg", ".png", ".webp", ".gif"];

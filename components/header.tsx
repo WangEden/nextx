@@ -36,18 +36,7 @@ export default function Header() {
   const toggleTheme = () => {
     if (!mounted) return;
     resolvedTheme === "light" ? setTheme("dark") : setTheme("light");
-    localStorage.removeItem("theme");
-    // // 手动切换主题，通过修改 document.documentElement 的 class 来控制主题
-    // const currentTheme = document.documentElement.classList.contains("dark") ? "dark" : "light";
-    // if (currentTheme === "dark") {
-    //   document.documentElement.classList.remove("dark");
-    //   document.documentElement.classList.add("light");
-    //   setIsDark(false);
-    // } else {
-    //   document.documentElement.classList.remove("light");
-    //   document.documentElement.classList.add("dark");
-    //   setIsDark(true);
-    // }
+    localStorage.removeItem("theme-v1");
   };
 
   const toggleDropdown = () => setIsDropdownOpen((v) => !v);
@@ -56,7 +45,7 @@ export default function Header() {
   const navItems = [
     { href: "/archives", label: "笔记", icon: Home },
     { href: "/about", label: "关于", icon: Info },
-    { href: "/dashboard", label: "面板", icon: Briefcase },
+    { href: "/dashboard", label: "应用", icon: Briefcase },
     { href: "/mine", label: "我的", icon: Mail },
   ];
 
@@ -154,7 +143,7 @@ export default function Header() {
                   </div>
 
                   {/* Dropdown Footer */}
-                  <div className="px-4 py-3 border-t border-border/30">
+                  {/* <div className="px-4 py-3 border-t border-border/30">
                     <Button
                       className="w-full bg-gradient-primary hover:bg-gradient-secondary transition-all duration-300 cursor-pointer text-sm"
                       onClick={closeDropdown}
@@ -162,7 +151,7 @@ export default function Header() {
                       Get Started
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
-                  </div>
+                  </div> */}
                 </div>
               )}
             </div>

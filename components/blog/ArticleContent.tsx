@@ -1,3 +1,5 @@
+// "use client";
+
 // components/blog/ArticleContent.tsx
 import React from "react";
 import { Avatar } from "@/components/ui/avatar";

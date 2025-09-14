@@ -8,7 +8,7 @@ import type { Post } from "@/lib/posts";
 import { PopupNotification } from "@/components/PopupNotification";
 import { useState } from "react";
 
-export function ArticlePage({ post }: { post: Post }) {
+export function ArticlePage({ post, likes }: { post: Post, likes: number }) {
   const [notification, setNotification] = useState(false);
 
   const triggerPopup = () => {
@@ -38,7 +38,7 @@ export function ArticlePage({ post }: { post: Post }) {
             <ArticleContent
               author={{ name: post.author, role: "" }}
               content={post.content}
-              likes={0}
+              likes={likes}
               comments={0}
             />
           </div>
