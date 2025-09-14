@@ -37,7 +37,7 @@ interface MarkdownRendererProps {
 export type ExtractStrategy = 'auto' | 'strip-frontmatter' | 'after-first-dash' | 'after-last-dash';
 
 /** 统一的 slug 规则：去首尾空格，空白->连字符。保持中文/括号/破折号等字符不变，确保 id 与 href 完全一致 */
-const slugify = (s: string) => s.trim().replace(/\s+/g, '-');
+const slugify = (s: string) => s.trim().replace(/\s+/g, '-').replace(/[^\u4e00-\u9fa5\w\-]/g, "");
 
 /** 从 React children 提取纯文本（用于计算标题 id） */
 const toText = (children: React.ReactNode): string =>

@@ -24,7 +24,7 @@ const CONTENT_DIR = "/home/eden/OneDrive/Apps/remotely-save/笔记/WebArchives";
 const ALLOWED_EXTS = [".jpg", ".jpeg", ".png", ".webp", ".gif"];
 // 默认封面所在 URL 目录（对应文件系统的 public 子目录）
 const DEFAULT_COVER_DIR_URL = "/imgs/default";
-const DEFAULT_COVER_DIR_FS = path.join(process.cwd(), "public", "imgs", "articleCover", "default");
+const DEFAULT_COVER_DIR_FS = path.join(process.cwd(), "public", "imgs", "default");
 
 // 仅把连续空白换成 -，保留中文
 function slugify(s: string) {
@@ -100,7 +100,7 @@ function resolveCover(coverFromFm: string | undefined, slug: string): string {
   }
 
   // 3) 兜底：给一个通用占位（请在 public 放一张）
-  return "/imgs/articleCover/placeholder.jpg";
+  return "/imgs/placeholder.jpg";
 }
 
 /**
@@ -136,7 +136,9 @@ export function getAllPosts(): PostMeta[] {
       title: (parsed.data?.title as string) ?? base,
       excerpt: (parsed.data?.excerpt as string) ?? "",
       author: (parsed.data?.author as string) ?? "Anonymous",
-      date: (parsed.data?.date as string) ?? "",
+      date: parsed.data?.date
+        ? new Date(parsed.data.date).toISOString().split("T")[0] // "YYYY-MM-DD"
+        : "",
       tags: (parsed.data?.tags as string[]) ?? [],
       category: (parsed.data?.category as string) ?? "General",
       // 🔽 关键：统一通过 resolveCover 产出可用封面
@@ -171,7 +173,9 @@ export function getPostBySlug(slug: string): Post | null {
         title: (parsed.data?.title as string) ?? base,
         excerpt: (parsed.data?.excerpt as string) ?? "",
         author: (parsed.data?.author as string) ?? "Anonymous",
-        date: (parsed.data?.date as string) ?? "",
+        date: parsed.data?.date
+          ? new Date(parsed.data.date).toISOString().split("T")[0] // "YYYY-MM-DD"
+          : "",
         tags: (parsed.data?.tags as string[]) ?? [],
         category: (parsed.data?.category as string) ?? "General",
         // 🔽 同样用 resolveCover，保证详情页与列表一致
