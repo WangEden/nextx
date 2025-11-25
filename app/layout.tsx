@@ -11,6 +11,8 @@ import PwaSplashLinks from "@/components/PwaSplashLinks";
 // app/layout.tsx
 import 'katex/dist/katex.min.css';
 
+import { VisitorTracker } from "@/components/VisitorTracker";
+
 // 字体：无衬线（正文）— 纤黑/常规/中等
 const wenkai = localFont({
   src: [
@@ -88,6 +90,7 @@ export default function RootLayout({
         >
           {/* 移除 AutoSunsetTheme */}
           <Header />
+          <VisitorTracker />
           {children}
           <Footer />
         </ThemeProvider>

@@ -45,7 +45,7 @@ export function Footer() {
             <div>
               <h3 className="text-lg font-bold text-primary">联系我</h3>
               <p className="mt-2 text-sm text-muted-foreground">
-                如有任何问题或建议，欢迎通过以下途径联系我！
+                网站源码已开源，欢迎访问我的GitHub仓库，提交issue或PR，或通过社交媒体与我联系。
               </p>
             </div>
             <div className="flex space-x-6">

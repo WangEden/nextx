@@ -8,6 +8,8 @@ interface PopupNotificationProps {
   message?: string;
   type?: 'error' | 'warning' | 'info';
   topOffset?: number;
+  duration?: number;
+  shake?: boolean;
 }
 
 export function PopupNotification({ 
@@ -15,7 +17,9 @@ export function PopupNotification({
   onComplete, 
   message = "Action not allowed",
   type = 'error',
-  topOffset = 64 // 默认 64px
+  topOffset = 64, // 默认 64px
+  duration = 0,
+  shake = true,
 }: PopupNotificationProps) {
   const [animationState, setAnimationState] = useState<'hidden' | 'entering' | 'shaking' | 'exiting'>('hidden');
 
@@ -26,19 +30,21 @@ export function PopupNotification({
       
       // After slide in, start shaking
       const shakeTimer = setTimeout(() => {
-        setAnimationState('shaking');
+        if (shake) {
+          setAnimationState('shaking');
+        }
       }, 200);
 
       // After shaking, start exit animation
       const exitTimer = setTimeout(() => {
         setAnimationState('exiting');
-      }, 1000); // 1000ms shaking + 200ms entering
+      }, 1000 + duration); // 1000ms shaking + 200ms entering
 
       // Complete the animation and hide
       const completeTimer = setTimeout(() => {
         setAnimationState('hidden');
         onComplete();
-      }, 1200); // 1000ms + 200ms exiting
+      }, 1200 + duration); // 1000ms + 200ms exiting
 
       // Cleanup timers on unmount or if isVisible changes
       return () => {
