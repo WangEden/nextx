@@ -19,17 +19,16 @@ export function CTASection() {
           <div className="mb-6 flex items-center justify-center">
             <div className="flex items-center space-x-2 rounded-full bg-muted/60 px-4 py-2 text-sm text-muted-foreground ring-1 ring-border/40 backdrop-blur">
               <Mail className="h-4 w-4 text-primary" />
-              <span>Join the Revolution</span>
+              <span>联系老王</span>
             </div>
           </div>
 
           {/* 标题/文案：用语义色 */}
           <h2 className="mb-4 text-3xl sm:text-4xl font-semibold text-foreground">
-            Ready to get started?
+            想和老王一起改变世界?
           </h2>
           <p className="mx-auto mb-8 max-w-2xl text-lg text-muted-foreground">
-            Join thousands of developers and teams who are already building amazing
-            applications with our platform. Start your free trial today.
+            加入老王的邮件列表，获取最新的文章、项目和独家内容，助你在技术和生活中不断成长。
           </p>
 
           {/* 表单：Input/按钮走主题，避免白底白字 */}
@@ -57,7 +56,7 @@ export function CTASection() {
                 hover:scale-[1.02]
               "
             >
-              Start Free Trial
+              发送邮件
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
@@ -66,11 +65,11 @@ export function CTASection() {
           <div className="flex items-center justify-center space-x-6 text-sm text-muted-foreground animate-in fade-in duration-600 delay-400">
             <div className="flex items-center space-x-2">
               <CheckCircle className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />
-              <span>No credit card required</span>
+              <span>提升技能</span>
             </div>
             <div className="flex items-center space-x-2">
               <CheckCircle className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />
-              <span>14-day free trial</span>
+              <span>提高认知</span>
             </div>
           </div>
         </div>

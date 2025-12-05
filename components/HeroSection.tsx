@@ -43,7 +43,7 @@ export function HeroSection({ posts }: { posts: PostMeta[] }) {
                     </span>
                   </h1>
                   <p className="mt-3 text-base text-muted-foreground sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                    专注于分享各个领域的技术知识，老王的目标是成为一个九边形战士
+                    专注于分享各个领域的技术知识，老王的目标是成为一个六边形战士
                   </p>
                   <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start gap-4">
                     <Button size="lg" className="w-full sm:w-auto bg-gradient-primary hover:bg-gradient-secondary transition-all duration-300 cursor-pointer shadow-lg hover:shadow-xl hover:scale-105 transform"
@@ -64,15 +64,14 @@ export function HeroSection({ posts }: { posts: PostMeta[] }) {
                   </div>
 
                   {/* Stats */}
-                  {/* Web、人工智能、嵌入式、视觉、硬件、机械、金融、数学、英语*/}
                   <div className="mt-8 flex items-center justify-center lg:justify-start space-x-8 text-sm text-muted-foreground animate-in slide-in-from-bottom-4 duration-800 delay-400">
                     <div className="flex items-center space-x-2">
                       <div className="w-2 h-2 bg-gradient-primary rounded-full"></div>
-                      <span>Web、人工智能、金融</span>
+                      <span>游戏开发、Web开发</span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <div className="w-2 h-2 bg-gradient-secondary rounded-full"></div>
-                      <span>嵌入式、视觉、硬件、机械</span>
+                      <span>嵌入式、机器人</span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <div className="w-2 h-2 bg-gradient-accent rounded-full"></div>

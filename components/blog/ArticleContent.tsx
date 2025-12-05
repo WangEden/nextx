@@ -23,7 +23,7 @@ export const ArticleContent: React.FC<ArticleContentProps> = ({
 }) => (
   <article className="prose prose-lg max-w-none min-w-0">
     {/* Article header */}
-    <div className="mb-8 p-6 bg-white/50 dark:bg-black/20 rounded-2xl backdrop-blur-sm border border-white/20 dark:border-white/10">
+    {/* <div className="mb-8 p-6 bg-white/50 dark:bg-black/20 rounded-2xl backdrop-blur-sm border border-white/20 dark:border-white/10">
       <div className="flex items-center gap-4 mb-4">
         <Avatar className="w-12 h-12">
           <div className="w-full h-full bg-gradient-primary rounded-full flex items-center justify-center">
@@ -43,7 +43,7 @@ export const ArticleContent: React.FC<ArticleContentProps> = ({
           <Button variant="ghost" size="sm" className="gap-2"><Share2 className="w-4 h-4" />Share</Button>
         </div>
       </div>
-    </div>
+    </div> */}
 
     {/* Article body */}
     <div className="space-y-8 text-foreground w-full max-w-full min-w-0">
