@@ -78,6 +78,7 @@ export default function RootLayout({
     <html lang="zh" suppressHydrationWarning className={`${wenkai.variable} ${wenkaiMono.variable}`}>
       <head>
         <PwaSplashLinks />
+        <meta name="msvalidate.01" content="D031115EBF62CB35F2ACB25CAC665807" />
       </head>
       <body className={`${wenkai.className} ${wenkaiMono.className} min-h-screen cursor-custom antialiased overflow-x-hidden pt-safe pb-safe`}>
         <ThemeProvider 
