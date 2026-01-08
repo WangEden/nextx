@@ -40,14 +40,17 @@ export type ExtractStrategy = 'auto' | 'strip-frontmatter' | 'after-first-dash' 
 const slugify = (s: string) => s.trim().replace(/\s+/g, '-').replace(/[^\u4e00-\u9fa5\w\-]/g, "");
 
 /** 从 React children 提取纯文本（用于计算标题 id） */
+type PropsWithChildren = { children?: React.ReactNode };
+
 const toText = (children: React.ReactNode): string =>
   React.Children.toArray(children)
-    .map((child: any) => {
-      if (typeof child === 'string' || typeof child === 'number') return String(child);
-      if (React.isValidElement(child)) return toText(child.props?.children);
-      return '';
+    .map((child) => {
+      if (typeof child === "string" || typeof child === "number") return String(child);
+      if (React.isValidElement<PropsWithChildren>(child)) return toText(child.props.children);
+      return "";
     })
-    .join('');
+    .join("");
+
 
 /** remark 插件：把 [[#标题]] 转成标准的内部锚点 [标题](#slug) */
 function remarkWikiLink() {
@@ -256,18 +259,34 @@ const BlockCode: React.FC<React.ComponentPropsWithoutRef<'pre'>> = ({ children, 
   const { language, title, showLineNumbers, variant } = parseInfo(className, metastring);
 
   return (
-    <div className="not-prose w-full max-w-full min-w-0 overflow-x-auto" {...props}>
-      {variant === 'syntax' ? (
-        <SyntaxCodeBlock language={language} title={title} showLineNumbers={true}>
-          {code}
-        </SyntaxCodeBlock>
-      ) : (
-        <CodeBlock language={language} title={title} showLineNumbers={true}>
-          {code}
-        </CodeBlock>
-      )}
+    <div className="not-prose w-full max-w-full min-w-0 overflow-x-auto">
+      <pre {...props} className={props.className}>
+        {variant === "syntax" ? (
+          <SyntaxCodeBlock language={language} title={title} showLineNumbers={true}>
+            {code}
+          </SyntaxCodeBlock>
+        ) : (
+          <CodeBlock language={language} title={title} showLineNumbers={true}>
+            {code}
+          </CodeBlock>
+        )}
+      </pre>
     </div>
   );
+
+  // return (
+  //   <div className="not-prose w-full max-w-full min-w-0 overflow-x-auto" {...props}>
+  //     {variant === 'syntax' ? (
+  //       <SyntaxCodeBlock language={language} title={title} showLineNumbers={true}>
+  //         {code}
+  //       </SyntaxCodeBlock>
+  //     ) : (
+  //       <CodeBlock language={language} title={title} showLineNumbers={true}>
+  //         {code}
+  //       </CodeBlock>
+  //     )}
+  //   </div>
+  // );
 };
 
 /** 提取主要内容：移除 frontmatter 或指定分隔线前的内容 */
