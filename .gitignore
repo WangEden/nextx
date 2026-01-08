@@ -11,16 +11,16 @@
 !.yarn/versions
 
 # private
-/content/posts/*
-/public/imgs/assets/*
-/public/imgs/default/*
+# /content/posts/*
+# /public/imgs/assets/*
+# /public/imgs/default/*
 
 # testing
 /coverage
 
 # next.js
 /.next/
-/out/
+out/
 
 # production
 /build
