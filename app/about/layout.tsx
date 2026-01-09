@@ -4,8 +4,8 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const linkData = [
-  {name: "All applications will come here soon!", path: "/dashboard/" },
-  // {name: "Settings", path: "/dashboard/settings" },
+  {name: "Sorry, this page is developing ...", path: "/about/" },
+  // {name: "Settings", path: "/about/settings" },
 ];
 
 export default function DashboardLayout({

@@ -5,7 +5,7 @@ import { getAllPosts } from "@/lib/posts";
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://wangeden.top";
+  const baseUrl = "https://edenx.me";
 
   const posts = getAllPosts();  // 自己实现：返回所有 { slug, date, updatedAt? }
 

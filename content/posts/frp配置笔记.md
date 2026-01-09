@@ -106,7 +106,7 @@ sudo systemctl enable frps
 ```bash
 ssh -p 6000 eden@47.117.xxx.xxx
 # 或使用域名
-ssh -p 6000 eden@wangeden.top
+ssh -p 6000 eden@edenx.me
 ```
 
 
@@ -125,7 +125,7 @@ vhostHTTPPort = 8080
 ```nginx
 server {
     listen 80;
-    server_name wangeden.top;
+    server_name edenx.me;
 
     location / {
         proxy_pass http://127.0.0.1:8080;
@@ -144,7 +144,7 @@ name = "hexoTest"
 type = "http"
 localIP = "127.0.0.1"
 localPort = 4000
-customDomains = ["wangeden.top"]
+customDomains = ["edenx.me"]
 ```
 
 重启即可
@@ -188,7 +188,7 @@ webServer.tls.keyFile = "server.key"
 ```
 
 阿里云生成的TLS证书有三个文件：
-wangeden.top_chain.crt  wangeden.top.key  wangeden.top_public.crt
+edenx.me_chain.crt  edenx.me.key  edenx.me_public.crt
 crt使用top_public才能使用
 
 客户端toml配置中添加：
@@ -238,7 +238,7 @@ sudo systemctl restart ssh
 
 在外部测试登陆
 ```bash
-ssh -i ~/.ssh/id_rsa -p 6000 user@wangeden.top
+ssh -i ~/.ssh/id_rsa -p 6000 user@edenx.me
 ```
 可以实现免输入密码
 
@@ -246,7 +246,7 @@ ssh -i ~/.ssh/id_rsa -p 6000 user@wangeden.top
 修改~/.ssh/config文件，添加
 ```ssh
 Host my-home
-    HostName wangeden.top
+    HostName edenx.me
     Port 6000
     User your_user
     IdentityFile ~/.ssh/id_rsa

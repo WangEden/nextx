@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
 import { ArticlePage } from "./_ArticlePage";
 
-const SITE_URL = "https://wangeden.top";
+const SITE_URL = "https://edenx.me";
 
 type RouteParams = { slug: string };
 type Props = { params: Promise<RouteParams> };
