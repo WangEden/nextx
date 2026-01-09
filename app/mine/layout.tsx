@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const linkData = [
-  {name: "Sorry, this page is developing ...", path: "/mine/" },
+  {name: "My description will be here, but not now, haha.", path: "/mine/" },
   // {name: "Settings", path: "/mine/settings" },
 ];
 
@@ -18,7 +18,7 @@ export default function DashboardLayout({
 
   return (
     <div>
-      <div className="border-2 border-dashed border-black p-4 w-1/2 mx-auto mt-10">
+      <div className="border-2 border-dashed border-black p-4 w-1/3 mx-auto mt-10">
         <div className="flex gap-4 font-bold text-lg mb-4">
           {
             linkData.map((link) =>(

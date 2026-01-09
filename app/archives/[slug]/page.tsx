@@ -3,8 +3,16 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
 import { ArticlePage } from "./_ArticlePage";
+// import dynamic from "next/dynamic";
+import { FloatingActionMenu } from "@/components/FloatingActionMenu";
 
 const SITE_URL = "https://edenx.me";
+
+// 动态引入悬浮菜单，关闭 SSR，避免 server component 报错
+// const FloatingActionMenu = dynamic(
+//   () => import("@/components/FloatingActionMenu"),
+//   { ssr: false }
+// );
 
 type RouteParams = { slug: string };
 type Props = { params: Promise<RouteParams> };
@@ -58,5 +66,11 @@ export default async function PostPage({ params }: Props) {
   if (!post) return notFound();
 
   const likes = 1;
-  return <ArticlePage post={post} likes={likes} />;
+  return (
+    <div className="min-h-screen cursor-custom">
+      <ArticlePage post={post} likes={likes} />
+      {/* 右下角浮动菜单 */}
+      <FloatingActionMenu />
+    </div>
+  );
 }

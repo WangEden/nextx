@@ -3,25 +3,48 @@
 // components/blog/Sidebar.tsx
 import React from "react";
 import { Card } from "@/components/ui/card";
-import { Avatar } from "@/components/ui/avatar";
+// import { Avatar } from "@/components/ui/avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Eye, Heart, MessageCircle, Share2, User } from "lucide-react";
 
 interface SidebarProps {
-  author: { name: string; role: string; description: string };
-  stats: { views: number; likes: number; comments: number; shares: number };
-  onTriggerPopup?: () => void;
+  author: {
+    name: string;
+    role: string;
+    description: string;
+    avatar?: string;
+  };
+  stats: {
+    views: number;
+    likes: number;
+    comments: number;
+    shares: number;
+  };
+  onTriggerPopup: () => void;
 }
+
+// interface SidebarProps {
+//   author: { name: string; role: string; description: string };
+//   stats: { views: number; likes: number; comments: number; shares: number };
+//   onTriggerPopup?: () => void;
+// }
 
 export const Sidebar: React.FC<SidebarProps> = ({ author, stats, onTriggerPopup }) => (
   <div className="space-y-6">
     {/* Author Info */}
     <Card className="p-6 bg-white/50 dark:bg-black/20 backdrop-blur-sm border-white/20 dark:border-white/10">
       <div className="flex items-center gap-4 mb-4">
-        <Avatar className="w-16 h-16">
+        {/* <Avatar className="w-16 h-16">
           <div className="w-full h-full bg-gradient-primary rounded-full flex items-center justify-center">
             <User className="w-8 h-8 text-white" />
           </div>
+        </Avatar> */}
+        <Avatar className="w-16 h-16">
+          <AvatarImage src={author.avatar} alt={author.name} />
+          <AvatarFallback className="bg-gradient-primary text-white">
+            <User className="w-8 h-8" />
+          </AvatarFallback>
         </Avatar>
         <div>
           <h3 className="font-semibold">{author.name}</h3>

@@ -343,3 +343,56 @@ thead {
 .markdown-rendered table thead { background-color: var(--cus-table-header); }
 .markdown-rendered table tr:nth-child(2n),
 .markdown-rendered thead { background-color: var(--cus-table-gap-tr); }
+
+/* 统一 Markdown 正文的基础排版 */
+.markdown-rendered {
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+/* 段落、列表、代码块、表格等块级内容的上下间距 */
+.markdown-rendered p,
+.markdown-rendered ul,
+.markdown-rendered ol,
+.markdown-rendered blockquote,
+.markdown-rendered pre,
+.markdown-rendered table {
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+}
+
+/* 列表项之间稍微拉开一点 */
+.markdown-rendered li {
+  margin: 0.2em 0;
+}
+
+/* 标题的上下间距，让结构更清晰 */
+.markdown-rendered h1 {
+  font-size: var(--h1-size);
+  font-weight: bold;
+  margin-top: 2em;
+  margin-bottom: 0.75em;
+}
+
+.markdown-rendered h2 {
+  font-size: var(--h2-size);
+  font-weight: bold;
+  margin-top: 1.8em;
+  margin-bottom: 0.6em;
+}
+
+.markdown-rendered h3 {
+  font-size: var(--h3-size);
+  font-weight: bold;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.markdown-rendered h4,
+.markdown-rendered h5,
+.markdown-rendered h6 {
+  font-size: var(--h4-size);
+  font-weight: bold;
+  margin-top: 1.2em;
+  margin-bottom: 0.4em;
+}
