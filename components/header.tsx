@@ -43,7 +43,7 @@ export default function Header() {
   const closeDropdown = () => setIsDropdownOpen(false);
 
   const navItems = [
-    { href: "/archives", label: "笔记", icon: Home },
+    { href: "/archives", label: "文库", icon: Home },
     { href: "/about", label: "关于", icon: Info },
     { href: "/dashboard", label: "应用", icon: Briefcase },
     { href: "/mine", label: "我的", icon: Mail },
@@ -66,7 +66,7 @@ export default function Header() {
               
               <div className="flex-shrink-0">
                 <h1 className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                  <Link href="/">老王杂货铺</Link>
+                  <Link href="/">Eden的笔记</Link>
                 </h1>
               </div>
             </div>

@@ -39,11 +39,11 @@ export function HeroSection({ posts }: { posts: PostMeta[] }) {
                   <h1 className="text-4xl tracking-tight sm:text-5xl md:text-6xl">
                     <span className="block">欢迎光临</span>
                     <span className="block bg-gradient-primary bg-clip-text text-transparent">
-                      老王的杂货铺
+                      这里是Eden的笔记
                     </span>
                   </h1>
                   <p className="mt-3 text-base text-muted-foreground sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                    专注于分享各个领域的技术知识，老王的目标是成为一个六边形战士
+                    专注于记录工程实践、技术原理与长期思考，用于沉淀与迭代，Eden的目标是成为一个六边形战士
                   </p>
                   <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start gap-4">
                     <Button size="lg" className="w-full sm:w-auto bg-gradient-primary hover:bg-gradient-secondary transition-all duration-300 cursor-pointer shadow-lg hover:shadow-xl hover:scale-105 transform"

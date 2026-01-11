@@ -73,7 +73,7 @@ export function ArticlePage({ post, likes }: { post: Post; likes: number }) {
             }}
             // 原来的逻辑：点“关注作者”弹出提示
             onTriggerPopup={() =>
-              showNotification("现在还不能关注老王", "warning")
+              showNotification("现在还不能关注Eden", "warning")
             }
           />
         </div>
@@ -157,7 +157,7 @@ export function ArticlePage({ post, likes }: { post: Post; likes: number }) {
 //       <PopupNotification
 //         isVisible={notification}
 //         onComplete={handlePopupComplete}
-//         message="现在还不能关注老王"
+//         message="现在还不能关注Eden"
 //         type="warning"
 //       />
 //     </div>

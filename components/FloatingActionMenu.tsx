@@ -133,7 +133,7 @@ export function FloatingActionMenu({ onNotification }: FloatingActionMenuProps) 
                     className="
                       w-11 h-11 md:w-12 md:h-12 rounded-full p-0 
                       bg-black/80 text-white 
-                      dark:bg-white/20 dark:text-black
+                      dark:bg-white/95 dark:text-black
                       shadow-xl hover:shadow-2xl  
                       transition-all duration-200 hover:scale-105 border-0
                     "

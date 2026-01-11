@@ -19,16 +19,16 @@ export function CTASection() {
           <div className="mb-6 flex items-center justify-center">
             <div className="flex items-center space-x-2 rounded-full bg-muted/60 px-4 py-2 text-sm text-muted-foreground ring-1 ring-border/40 backdrop-blur">
               <Mail className="h-4 w-4 text-primary" />
-              <span>联系老王</span>
+              <span>联系Eden</span>
             </div>
           </div>
 
           {/* 标题/文案：用语义色 */}
           <h2 className="mb-4 text-3xl sm:text-4xl font-semibold text-foreground">
-            想和老王一起改变世界?
+            想和Eden一起改变世界?
           </h2>
           <p className="mx-auto mb-8 max-w-2xl text-lg text-muted-foreground">
-            加入老王的邮件列表，获取最新的文章、项目和独家内容，助你在技术和生活中不断成长。
+            加入Eden的邮件列表，获取最新的文章、项目和独家内容，助你在技术和生活中不断成长。
           </p>
 
           {/* 表单：Input/按钮走主题，避免白底白字 */}

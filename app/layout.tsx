@@ -40,13 +40,13 @@ const wenkaiMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "榴莲桂花糕",
-  description: "WangEden WebSite",
+  title: "EdenX",
+  description: "Eden的笔记",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,                     // 等价 <meta name="apple-mobile-web-app-capable" content="yes">
     statusBarStyle: "black-translucent",
-    title: "WangEden",                  // <meta name="apple-mobile-web-app-title">
+    title: "EdenX",                  // <meta name="apple-mobile-web-app-title">
   },
   icons: {
     icon: [

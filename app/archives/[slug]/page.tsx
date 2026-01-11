@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getPostBySlug(decoded);
   if (!post) return {};
 
-  const title = `${post.title} | 老王的笔记本`;
+  const title = `${post.title} | Eden的笔记本`;
   const description =
     post.excerpt && post.excerpt.trim().length > 0
       ? post.excerpt

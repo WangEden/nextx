@@ -18,7 +18,7 @@ export function AboutSection() {
               WangEden
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              老王，一个热衷于技术和创新的开发者，致力于为用户提供卓越的数字体验。
+              Eden，一个热衷于技术和创新的开发者，致力于为用户提供卓越的数字体验。
             </p>
             
             <div className="mt-8 grid grid-cols-2 gap-6">
@@ -45,7 +45,7 @@ export function AboutSection() {
                 </div>
                 <div className="ml-4">
                   <div className="text-sm font-medium">WangEden</div>
-                  <div className="text-sm text-muted-foreground">Boss, 老王工作室</div>
+                  <div className="text-sm text-muted-foreground">Boss, Eden工作室</div>
                 </div>
               </div>
             </div>
