@@ -111,7 +111,7 @@ ament_package()
 
 （3）将`launch`目录下的`display.launch`和`gezebo.launch`修改为`display.launch.py`和`gezebo.launch.py`，然后修改内容：
 
-`display.launch.py`修改为如下内容，第12行改为自己包名，第41行改为自己的urdf文件名；
+`display.launch.py`修改为如下内容，第12行改为自己包名，第37行改为自己的urdf文件名；
 ```python
 import os
 from ament_index_python.packages import get_package_share_directory
