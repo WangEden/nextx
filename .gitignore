@@ -12,7 +12,7 @@
 
 # private
 # /content/posts/*
-# /public/imgs/assets/*
+/public/imgs/assets_src/*
 # /public/imgs/default/*
 
 # testing
