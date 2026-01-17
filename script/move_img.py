@@ -9,7 +9,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 
 POSTS_DIR = ROOT / "content" / "posts"
-SRC_IMG_DIR = ROOT / "public" / "imgs" / "assets_src"
+SRC_IMG_DIR = ""
+with open(ROOT / "script" / "src_path.txt", "r", encoding="utf-8") as f:
+    src_path = f.read().strip()
+    if not src_path:
+        raise ValueError("Source image path in src_path.txt is empty.")
+    SRC_IMG_DIR = Path(src_path)
+    print(f"Source image directory set to: {SRC_IMG_DIR}")
 DST_IMG_DIR = ROOT / "public" / "imgs" / "assets"
 
 DST_IMG_DIR.mkdir(parents=True, exist_ok=True)
@@ -31,4 +37,3 @@ for img_name in referenced_images:
     dst = DST_IMG_DIR / img_name
     if src.exists() and src.is_file():
         shutil.copy2(src, dst)
-

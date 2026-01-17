@@ -14,13 +14,14 @@
 # /content/posts/*
 /public/imgs/assets_src/*
 # /public/imgs/default/*
+/script/src_path.txt
 
 # testing
 /coverage
 
 # next.js
 /.next/
-out/
+/out/
 
 # production
 /build
