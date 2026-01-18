@@ -36,4 +36,5 @@ for img_name in referenced_images:
     src = SRC_IMG_DIR / img_name
     dst = DST_IMG_DIR / img_name
     if src.exists() and src.is_file():
+        print(f"Copying {src} to {dst}")
         shutil.copy2(src, dst)

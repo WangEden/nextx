@@ -396,3 +396,23 @@ thead {
   margin-top: 1.2em;
   margin-bottom: 0.4em;
 }
+/* 表格横向滚动容器 */
+.markdown-rendered .table-wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 让 table 按内容撑开，从而触发横向滚动 */
+.markdown-rendered table.markdown-table {
+  width: max-content;     /* 关键：不要强行 100% */
+  min-width: 100%;        /* 至少占满容器 */
+  border-collapse: collapse;
+}
+
+/* 单元格不要强制断词换行（需要换行就删掉这段） */
+.markdown-rendered table.markdown-table th,
+.markdown-rendered table.markdown-table td {
+  white-space: nowrap;
+}

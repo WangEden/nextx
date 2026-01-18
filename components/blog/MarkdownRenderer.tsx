@@ -28,6 +28,7 @@ type CodeMeta = {
 };
 
 import './MarkdownRenderer.css';
+import { table } from 'console';
 
 interface MarkdownRendererProps {
   content: string;
@@ -390,6 +391,29 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
           ),
           pre: BlockCode,   // ✅ 块级代码渲染：交给你的 CodeBlock
           code: InlineCode, // ✅ 行内代码渲染：保持 <code>
+          table: ({ node, className, ...props }) => (
+            <div className="table-wrapper not-prose w-full max-w-full overflow-x-auto">
+              <table
+                {...props}
+                className={`markdown-table min-w-max ${className || ""}`}
+              />
+            </div>
+          ),
+          thead: ({ node, className, ...props }) => (
+            <thead {...props} className={className} />
+          ),
+          tbody: ({ node, className, ...props }) => (
+            <tbody {...props} className={className} />
+          ),
+          tr: ({ node, className, ...props }) => (
+            <tr {...props} className={className} />
+          ),
+          th: ({ node, className, ...props }) => (
+            <th {...props} className={className} />
+          ),
+          td: ({ node, className, ...props }) => (
+            <td {...props} className={className} />
+          ),
         }}
       />
     </div>
