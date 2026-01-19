@@ -14,7 +14,9 @@
 # /content/posts/*
 /public/imgs/assets_src/*
 # /public/imgs/default/*
-/script/src_path.txt
+/script/src_img_path.txt
+/script/src_md_path.txt
+/script/test.py
 
 # testing
 /coverage
