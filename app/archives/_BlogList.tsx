@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import type { PostMeta } from "@/lib/posts";
 import { Card } from "@/components/ui/card";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
 import { Badge } from "@/components/ui/badge";
-import { useRouter } from "next/navigation";
+import { useViewTransitionRouter } from "@/components/useViewTransitionRouter";
 import { Button } from "@/components/ui/button";
 import { 
   Calendar,
@@ -35,7 +35,7 @@ export default function BlogList({ posts }: { posts: PostMeta[] }) {
   const regular = filtered;
 
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const router = useRouter();
+  const { push } = useViewTransitionRouter();
 
   const [notification, setNotification] = useState(false);
 
@@ -56,13 +56,19 @@ export default function BlogList({ posts }: { posts: PostMeta[] }) {
       className={`group cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl bg-white/50 dark:bg-black/20 backdrop-blur-sm border-white/20 dark:border-white/10 overflow-hidden ${
         featured ? 'lg:col-span-2' : ''
       }`}
-      onClick={() => router.push(`/archives/${post.slug}`)}
+      onClick={() => push(`/archives/${post.slug}`)}
     >
       <div className={`relative ${featured ? 'h-80' : 'h-48'} overflow-hidden`}>
         <ImageWithFallback
           src={post.cover}
           alt={post.title}
           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+          style={
+            {
+              viewTransitionName: `cover-${post.slug}`,
+              viewTransitionClass: "cover",
+            } as CSSProperties
+          }
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
         <div className="absolute top-4 left-4">
@@ -131,7 +137,7 @@ export default function BlogList({ posts }: { posts: PostMeta[] }) {
   const BlogListItem = ({ post }: { post: PostMeta }) => (
     <Card 
       className="group cursor-pointer transition-all duration-300 hover:shadow-lg bg-white/50 dark:bg-black/20 backdrop-blur-sm border-white/20 dark:border-white/10"
-      onClick={() => router.push(`/archives/${post.slug}`)}
+      onClick={() => push(`/archives/${post.slug}`)}
     >
       <div className="p-6">
         <div className="flex gap-6">
@@ -140,6 +146,12 @@ export default function BlogList({ posts }: { posts: PostMeta[] }) {
               src={post.cover}
               alt={post.title}
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+              style={
+                {
+                  viewTransitionName: `cover-${post.slug}`,
+                  viewTransitionClass: "cover",
+                } as CSSProperties
+              }
             />
           </div>
           

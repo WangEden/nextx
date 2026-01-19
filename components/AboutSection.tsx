@@ -15,12 +15,12 @@ export function AboutSection() {
         <div className="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
           <div>
             <h2 className="text-3xl sm:text-4xl">
-              WangEden
+              Eden
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              Eden，一个热衷于技术和创新的开发者，致力于为用户提供卓越的数字体验。
+              Eden，一名六边形战士
             </p>
-            
+
             <div className="mt-8 grid grid-cols-2 gap-6">
               {stats.map((stat, index) => (
                 <div key={index} className="text-center lg:text-left">
@@ -32,8 +32,7 @@ export function AboutSection() {
 
             <div className="mt-8">
               <p className="text-muted-foreground">
-                "This platform has transformed how we build and deploy our applications. 
-                The developer experience is unmatched, and the performance gains are incredible."
+                "(由于还不知道该放什么内容，上面的数据都是假的..., haha)"
               </p>
               <div className="mt-4 flex items-center">
                 <div className="flex-shrink-0">
@@ -44,8 +43,8 @@ export function AboutSection() {
                   />
                 </div>
                 <div className="ml-4">
-                  <div className="text-sm font-medium">WangEden</div>
-                  <div className="text-sm text-muted-foreground">Boss, Eden工作室</div>
+                  <div className="text-sm font-medium">Eden</div>
+                  <div className="text-sm text-muted-foreground">Eden工作室</div>
                 </div>
               </div>
             </div>

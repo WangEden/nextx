@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type CSSProperties } from 'react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, Eye, BookOpen, Tag } from "lucide-react";
@@ -11,6 +11,7 @@ interface HeroProps {
   readingTime: string;
   views: number;
   coverImage: string;
+  coverTransitionName?: string;
 }
 
 export const Hero: React.FC<HeroProps> = ({ 
@@ -20,7 +21,8 @@ export const Hero: React.FC<HeroProps> = ({
     date, 
     readingTime, 
     views, 
-    coverImage 
+    coverImage,
+    coverTransitionName,
 }) => (
     <section className="relative h-[50vh]">
         {/* Hero Section with Cover Image */}
@@ -28,7 +30,16 @@ export const Hero: React.FC<HeroProps> = ({
             <ImageWithFallback 
                 src={coverImage} 
                 alt="Blog cover" 
-                className="w-full h-full object-cover" />
+                className="w-full h-full object-cover"
+                style={
+                  coverTransitionName
+                    ? ({
+                        viewTransitionName: coverTransitionName,
+                        viewTransitionClass: "cover",
+                      } as CSSProperties)
+                    : undefined
+                }
+            />
             {/* Dark overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30"></div>
         </div>

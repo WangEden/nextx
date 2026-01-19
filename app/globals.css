@@ -201,6 +201,26 @@ pre::-webkit-scrollbar-thumb:hover {
   background: var(--foreground);
 }
 
+/* View Transitions: shared cover animation */
+::view-transition-group(cover) {
+  animation-duration: 600ms;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+::view-transition-old(cover),
+::view-transition-new(cover) {
+  animation-duration: 600ms;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(cover),
+  ::view-transition-old(cover),
+  ::view-transition-new(cover) {
+    animation-duration: 0ms;
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

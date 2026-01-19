@@ -2,12 +2,25 @@
 "use client";
 
 import { Button } from "./ui/button";
-import { Menu, Moon, Sun, X, Home, Info, Briefcase, Mail, ArrowRight } from "lucide-react";
-import { useState, useEffect, useRef} from "react";
+import {
+  Menu,
+  Moon,
+  Sun,
+  X,
+  Home,
+  Info,
+  Briefcase,
+  Mail,
+  ArrowRight,
+  ArrowLeft,
+} from "lucide-react";
+import { useState, useEffect, useRef, type MouseEvent as ReactMouseEvent } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";           // ✅ 用这个
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
 import elaina2 from "@/public/imgs/elaina2.jpg";
+import { useViewTransitionRouter } from "@/components/useViewTransitionRouter";
 
 export default function Header() {
   const [mounted, setMounted] = useState(false);   // 避免 SSR 水合不一致
@@ -24,7 +37,7 @@ export default function Header() {
   // 点击外部关闭 dropdown
   useEffect(() => {
     if (!isDropdownOpen) return;
-    const handleClickOutside = (e: MouseEvent) => {
+    const handleClickOutside = (e: globalThis.MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
         setIsDropdownOpen(false);
       }
@@ -41,6 +54,18 @@ export default function Header() {
 
   const toggleDropdown = () => setIsDropdownOpen((v) => !v);
   const closeDropdown = () => setIsDropdownOpen(false);
+  const pathname = usePathname();
+  const { push } = useViewTransitionRouter();
+  const isArticlePage = pathname?.startsWith("/archives/") && pathname !== "/archives";
+
+  const handleBackToArchives = (event: ReactMouseEvent<HTMLAnchorElement>) => {
+    if (!isArticlePage) return;
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) {
+      return;
+    }
+    event.preventDefault();
+    push("/archives");
+  };
 
   const navItems = [
     { href: "/archives", label: "文库", icon: Home },
@@ -56,19 +81,38 @@ export default function Header() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center cursor-pointer ml-8" onClick={closeDropdown}>
-              <div className="flex-shrink-0 mr-3">
-                <ImageWithFallback
-                  src={elaina2.src}
-                  alt="avatar"
-                  className="h-10 w-10 rounded-full transform transition duration-500 ease-elastic hover:scale-110"
-                />
-              </div>
-              
-              <div className="flex-shrink-0">
-                <h1 className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                  <Link href="/">Eden的笔记</Link>
-                </h1>
-              </div>
+              {isArticlePage ? (
+                <>
+                  <div className="flex-shrink-0 mr-3">
+                    <div className="h-10 w-10 rounded-full bg-white/10 text-foreground flex items-center justify-center transition duration-300 ease-elastic hover:scale-110">
+                      <ArrowLeft className="h-5 w-5" />
+                    </div>
+                  </div>
+                  <div className="flex-shrink-0">
+                    <h1 className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+                      <Link href="/archives" onClick={handleBackToArchives}>
+                        返回文库
+                      </Link>
+                    </h1>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="flex-shrink-0 mr-3">
+                    <ImageWithFallback
+                      src={elaina2.src}
+                      alt="avatar"
+                      className="h-10 w-10 rounded-full transform transition duration-500 ease-elastic hover:scale-110"
+                    />
+                  </div>
+
+                  <div className="flex-shrink-0">
+                    <h1 className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+                      <Link href="/">Eden的笔记</Link>
+                    </h1>
+                  </div>
+                </>
+              )}
             </div>
 
             <div className="flex items-center space-x-4">

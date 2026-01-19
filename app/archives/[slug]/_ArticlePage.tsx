@@ -7,6 +7,7 @@ import { Tag } from "lucide-react";
 import type { Post } from "@/lib/posts";
 import { PopupNotification } from "@/components/PopupNotification";
 import { FloatingActionMenu } from "@/components/FloatingActionMenu";
+import { GiscusComments } from "@/components/GiscusComments";
 import { useState } from "react";
 
 type NoticeType = "info" | "warning" | "error";
@@ -44,6 +45,7 @@ export function ArticlePage({ post, likes }: { post: Post; likes: number }) {
         readingTime={post.readTime ?? ""}
         views={post.views ?? 0}
         coverImage={post.cover}
+        coverTransitionName={`cover-${post.slug}`}
       />
 
       <section className="py-16 bg-radial">
@@ -55,6 +57,10 @@ export function ArticlePage({ post, likes }: { post: Post; likes: number }) {
               likes={likes}
               comments={0}
             />
+            <div className="mt-12 rounded-2xl bg-white/50 dark:bg-black/20 backdrop-blur-sm border border-white/20 dark:border-white/10 p-6">
+              <h3 className="text-lg font-semibold mb-4">评论区</h3>
+              <GiscusComments />
+            </div>
           </div>
 
           <Sidebar

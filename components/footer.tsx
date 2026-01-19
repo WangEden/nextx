@@ -1,142 +1,56 @@
-import { Github, X, Linkedin, Mail } from "lucide-react";
+"use client";
 
-const navigation = {
-  product: [
-    { name: "Features", href: "#" },
-    { name: "Pricing", href: "#" },
-    { name: "Documentation", href: "#" },
-    { name: "API Reference", href: "#" }
-  ],
-  company: [
-    { name: "About", href: "#about" },
-    { name: "Blog", href: "#" },
-    { name: "Careers", href: "#" },
-    { name: "Contact", href: "#contact" }
-  ],
-  support: [
-    { name: "Help Center", href: "#" },
-    { name: "Community", href: "#" },
-    { name: "Status", href: "#" },
-    { name: "Security", href: "#" }
-  ],
-  legal: [
-    { name: "Privacy Policy", href: "#" },
-    { name: "Terms of Service", href: "#" },
-    { name: "Cookie Policy", href: "#" }
-  ]
-};
+import { useEffect, useState } from "react";
+const START_TIME = new Date(2025, 8, 10, 14, 57, 0);
 
-const socialLinks = [
-  { name: "GitHub", href: "https://github.com/WangEden/nextx", icon: Github },
-  { name: "X", href: "https://github.com/WangEden", icon: X },
-  { name: "LinkedIn", href: "https://github.com/WangEden", icon: Linkedin },
-  { name: "Email", href: "https://github.com/WangEden", icon: Mail }
-];
+function getRuntimeParts(now: Date) {
+  if (now.getTime() < START_TIME.getTime()) {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  }
+
+  let diff = Math.floor((now.getTime() - START_TIME.getTime()) / 1000);
+  const days = Math.floor(diff / 86400);
+  diff %= 86400;
+  const hours = Math.floor(diff / 3600);
+  diff %= 3600;
+  const minutes = Math.floor(diff / 60);
+  const seconds = diff % 60;
+  return { days, hours, minutes, seconds };
+}
+
+function formatRuntime(now: Date) {
+  const { days, hours, minutes, seconds } = getRuntimeParts(now);
+  return `本站已运行 ${days}天${hours}时${minutes}分${seconds}秒`;
+}
 
 export function Footer() {
+  const [runtimeText, setRuntimeText] = useState(() => formatRuntime(new Date()));
+
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      setRuntimeText(formatRuntime(new Date()));
+    }, 1000);
+    return () => window.clearInterval(id);
+  }, []);
+
   return (
     <footer className="border-t border-border/20 backdrop-blur-sm" aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="xl:grid xl:grid-cols-3 xl:gap-8">
-          <div className="space-y-8 xl:col-span-1">
-            <div>
-              <h3 className="text-lg font-bold text-primary">联系我</h3>
-              <p className="mt-2 text-sm text-muted-foreground">
-                网站源码已开源，欢迎访问我的GitHub仓库，提交issue或PR，或通过社交媒体与我联系。
-              </p>
-            </div>
-            <div className="flex space-x-6">
-              {socialLinks.map((item) => {
-                const IconComponent = item.icon;
-                return (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    <span className="sr-only">{item.name}</span>
-                    <IconComponent className="h-5 w-5" />
-                  </a>
-                );
-              })}
-            </div>
+        <div className="mx-auto max-w-2xl text-center space-y-2">
+          <div>
+            <p className="text-base text-muted-foreground">由 Eden 构建与维护</p>
           </div>
-          <div className="mt-12 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
-            <div className="md:grid md:grid-cols-2 md:gap-8">
-              <div>
-                <h3 className="text-sm font-medium text-foreground">Product</h3>
-                <ul className="mt-4 space-y-4">
-                  {navigation.product.map((item) => (
-                    <li key={item.name}>
-                      <a
-                        href={item.href}
-                        className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                      >
-                        {item.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="mt-12 md:mt-0">
-                <h3 className="text-sm font-medium text-foreground">Company</h3>
-                <ul className="mt-4 space-y-4">
-                  {navigation.company.map((item) => (
-                    <li key={item.name}>
-                      <a
-                        href={item.href}
-                        className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                      >
-                        {item.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            <div className="md:grid md:grid-cols-2 md:gap-8">
-              <div>
-                <h3 className="text-sm font-medium text-foreground">Support</h3>
-                <ul className="mt-4 space-y-4">
-                  {navigation.support.map((item) => (
-                    <li key={item.name}>
-                      <a
-                        href={item.href}
-                        className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                      >
-                        {item.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="mt-12 md:mt-0">
-                <h3 className="text-sm font-medium text-foreground">Legal</h3>
-                <ul className="mt-4 space-y-4">
-                  {navigation.legal.map((item) => (
-                    <li key={item.name}>
-                      <a
-                        href={item.href}
-                        className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                      >
-                        {item.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+          <div className="pt-2">
+            <p className="text-base text-muted-foreground">{runtimeText}</p>
           </div>
-        </div>
-        <div className="mt-12 border-t border-border/20 pt-8">
-          <p className="text-sm text-muted-foreground text-center">
-            &copy; {new Date().getFullYear()} WangEden. 版权所有.
-          </p>
+          <div className="pt-2">
+            <p className="text-base text-muted-foreground">
+              &copy; {new Date().getFullYear()} Eden. 版权所有.
+            </p>
+          </div>
         </div>
       </div>
     </footer>
