@@ -17,6 +17,7 @@
 /script/src_img_path.txt
 /script/src_md_path.txt
 /script/test.py
+.env.local
 
 # testing
 /coverage
