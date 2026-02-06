@@ -3,7 +3,12 @@ import React from 'react'
 export default function page() {
   return (
     <div>
-      忽略死亡因素，人生的答卷没有标准答案，也没有截止日期，不要因为别人交了答卷，自己就匆忙作答，各位共勉。
+      下一步计划：
+      1.机械臂文章补全；
+      2.整理矩阵、数值分析笔记文章；
+      3.OpenGL相关笔记文章；
+      4.MC开服教程文章；
+      5.应用程序功能实现；
     </div>
   )
 }
