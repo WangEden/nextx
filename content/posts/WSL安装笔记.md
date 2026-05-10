@@ -1,6 +1,3 @@
-back to [[目录]]；
-back to [[机械臂]]；
-
 ---
 title: "WSL安装笔记"
 excerpt: "记录WSL的安装过程"

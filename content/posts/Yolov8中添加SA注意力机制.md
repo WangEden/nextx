@@ -7,7 +7,7 @@ tags:
   - 计算机视觉
   - 深度学习
   - Yolov8
-category: 视觉
+category: 图形学
 cover: /imgs/articleCover/Yolov8中添加SA注意力机制.jpg
 views: 2437
 featured: false

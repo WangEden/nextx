@@ -1,10 +1,7 @@
-back to [[目录]]；
-back to [[配置笔记目录]]；
-
 ---
 title: "git配置"
 excerpt: "记录git的配置过程"
-author: "Wang Eden"
+author: "Eden"
 date: "2025-06-12"
 tags: ["配置", "git"]
 category: "配置"

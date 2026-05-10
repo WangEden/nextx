@@ -1,10 +1,7 @@
-back to [[目录]]；
-back to [[Minecraft ModsUpdater]]；
-
 ---
 title: "frp配置笔记"
 excerpt: "记录frp-内网穿透工具的配置过程"
-author: "Wang Eden"
+author: "Eden"
 date: "2025-06-10"
 tags: ["配置", "内网穿透"]
 category: "配置"

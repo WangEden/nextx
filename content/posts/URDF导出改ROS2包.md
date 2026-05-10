@@ -1,5 +1,3 @@
-back to [[配置笔记目录]]；
-
 ---
 title: "URDF导出改ROS2包"
 excerpt: "记录URDF导出改ROS2包的过程"

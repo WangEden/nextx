@@ -1,6 +1,3 @@
-back to [[配置笔记目录]]；
-back to [[目录]]；
-
 ---
 title: "MacOS配置STM32开发环境(Hal库)"
 excerpt: "记录Mac配置STM32 Hal库开发环境的过程"
