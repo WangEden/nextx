@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -103,11 +103,9 @@ export function CTASection() {
   const handlePopupComplete = () => setNotification((prev) => ({ ...prev, visible: false }));
 
   return (
-    <section className="py-16 sm:py-24 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-primary/90 backdrop-blur-sm"></div>
-
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-4xl text-center">
+    <section id="contact" className="journal-shell home-contact" aria-labelledby="contact-heading">
+      <div className="contact-panel liquid-glass">
+        <div className="contact-content mx-auto max-w-4xl text-center">
           <div className="mb-6 flex items-center justify-center">
             <div className="flex items-center space-x-2 rounded-full bg-muted/60 px-4 py-2 text-sm text-muted-foreground ring-1 ring-border/40 backdrop-blur">
               <Mail className="h-4 w-4 text-primary" />
@@ -115,8 +113,8 @@ export function CTASection() {
             </div>
           </div>
 
-          <h2 className="mb-4 text-3xl sm:text-4xl font-semibold text-foreground">联系我</h2>
-          <p className="mx-auto mb-6 max-w-2xl text-lg text-muted-foreground">
+          <h2 id="contact-heading" className="contact-heading mb-4 text-3xl sm:text-4xl font-semibold text-foreground">联系我</h2>
+          <p className="contact-intro mx-auto mb-6 max-w-2xl text-lg text-muted-foreground">
             有任何问题欢迎来 GitHub 仓库提 issue，或者直接在这里留言
           </p>
 
@@ -132,23 +130,28 @@ export function CTASection() {
             </a>
           </div>
 
-          <div className="mx-auto mb-8 flex max-w-2xl flex-col gap-4">
+          <div className="contact-form mx-auto mb-8 flex max-w-2xl flex-col gap-4">
             {/* 蜜罐字段：视觉隐藏但不 display:none（避免被机器人跳过） */}
             <div className="absolute left-[-9999px] top-auto h-0 w-0 overflow-hidden" aria-hidden="true">
               <label>
                 Company
-                <input value={company} onChange={(e) => setCompany(e.target.value)} />
+                <input name="company" autoComplete="off" tabIndex={-1} value={company} onChange={(e) => setCompany(e.target.value)} />
               </label>
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2">
               <Input
+                aria-label="你的名字"
+                autoComplete="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="你的名字"
                 className="bg-background/70 text-foreground placeholder:text-muted-foreground border-border/50 focus-visible:ring-primary/40"
               />
               <Input
+                type="email"
+                aria-label="你的邮箱（用于回复）"
+                autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="你的邮箱（用于回复）"
@@ -157,9 +160,10 @@ export function CTASection() {
             </div>
 
             <Textarea
+              aria-label="留言内容"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              placeholder="写下你的问题或想法…（请输入不少于两个字）"
+              placeholder="写下你的问题或想法…（至少五个字）"
               rows={6}
               className="bg-background/70 text-foreground placeholder:text-muted-foreground border-border/50 focus-visible:ring-primary/40 focus:border-primary/60 transition-colors"
             />
@@ -168,7 +172,7 @@ export function CTASection() {
               <Button
                 onClick={handleSubmit}
                 disabled={!canSend}
-                className="whitespace-nowrap bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02]"
+                className="contact-send whitespace-nowrap bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02]"
               >
                 {status === "sending" ? "发送中..." : "发送留言"}
                 <ArrowRight className="ml-2 h-4 w-4" />

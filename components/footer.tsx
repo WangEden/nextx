@@ -1,58 +1,24 @@
 "use client";
 
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { useEffect, useState } from "react";
+
 const START_TIME = new Date(2025, 8, 10, 14, 57, 0);
-
-function getRuntimeParts(now: Date) {
-  if (now.getTime() < START_TIME.getTime()) {
-    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
-  }
-
-  let diff = Math.floor((now.getTime() - START_TIME.getTime()) / 1000);
-  const days = Math.floor(diff / 86400);
-  diff %= 86400;
-  const hours = Math.floor(diff / 3600);
-  diff %= 3600;
-  const minutes = Math.floor(diff / 60);
-  const seconds = diff % 60;
-  return { days, hours, minutes, seconds };
-}
-
-function formatRuntime(now: Date) {
-  const { days, hours, minutes, seconds } = getRuntimeParts(now);
-  return `本站已运行 ${days}天${hours}时${minutes}分${seconds}秒`;
+function formatRuntime() {
+  const elapsed = Math.max(0, Math.floor((Date.now() - START_TIME.getTime()) / 1000));
+  return `已记录 ${Math.floor(elapsed / 86400)} 天 ${Math.floor(elapsed / 3600) % 24} 时 ${Math.floor(elapsed / 60) % 60} 分 ${elapsed % 60} 秒`;
 }
 
 export function Footer() {
-  const [runtimeText, setRuntimeText] = useState(() => formatRuntime(new Date()));
-
+  const [runtime, setRuntime] = useState("记录从未停下");
   useEffect(() => {
-    const id = window.setInterval(() => {
-      setRuntimeText(formatRuntime(new Date()));
-    }, 1000);
-    return () => window.clearInterval(id);
+    setRuntime(formatRuntime());
+    const timer = window.setInterval(() => setRuntime(formatRuntime()), 1000);
+    return () => window.clearInterval(timer);
   }, []);
-
-  return (
-    <footer className="border-t border-border/20 backdrop-blur-sm" aria-labelledby="footer-heading">
-      <h2 id="footer-heading" className="sr-only">
-        Footer
-      </h2>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="mx-auto max-w-2xl text-center space-y-2">
-          <div>
-            <p className="text-base text-muted-foreground">由 Eden 构建与维护</p>
-          </div>
-          <div className="pt-2">
-            <p className="text-base text-muted-foreground">{runtimeText}</p>
-          </div>
-          <div className="pt-2">
-            <p className="text-base text-muted-foreground">
-              &copy; {new Date().getFullYear()} Eden. 版权所有.
-            </p>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
+  return <footer className="site-footer">
+    <div className="journal-shell footer-top"><div><Link href="/" className="footer-brand">Eden<span>X</span><span className="footer-brand__dot" /></Link><p>掬水月在手，弄花香满衣。</p></div><nav aria-label="页脚导航"><Link href="/archives">文库<ArrowUpRight size={14} /></Link><Link href="/about">关于我<ArrowUpRight size={14} /></Link></nav></div>
+    <div className="journal-shell footer-bottom"><span>© {new Date().getFullYear()} Eden. 用热爱构建。</span><span>{runtime}</span><span>MADE OF THOUGHTS & COFFEE</span></div>
+  </footer>;
 }

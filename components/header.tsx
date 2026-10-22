@@ -1,209 +1,66 @@
-// Header.tsx
 "use client";
 
-import { Button } from "./ui/button";
-import {
-  Menu,
-  Moon,
-  Sun,
-  X,
-  Home,
-  Info,
-  Briefcase,
-  Mail,
-  ArrowRight,
-  ArrowLeft,
-} from "lucide-react";
-import { useState, useEffect, useRef, type MouseEvent as ReactMouseEvent } from "react";
+import { BookOpen, Grid2X2, Info, Moon, Sun, UserRound, ArrowLeft, X } from "lucide-react";
+import { useEffect, useState, type MouseEvent } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useTheme } from "next-themes";           // ✅ 用这个
-import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
-import elaina2 from "@/public/imgs/elaina2.jpg";
-import { useViewTransitionRouter } from "@/components/useViewTransitionRouter";
+import { useTheme } from "next-themes";
+import { motion, useReducedMotion } from "motion/react";
+import { useViewTransitionRouter } from "./useViewTransitionRouter";
+import { moveGlassHighlight } from "./LiquidGlass";
+
+const navItems = [
+  { href: "/archives", label: "文库", icon: BookOpen },
+  { href: "/about", label: "关于", icon: Info },
+  { href: "/dashboard", label: "应用", icon: Grid2X2 },
+  { href: "/mine", label: "我的", icon: UserRound },
+];
 
 export default function Header() {
-  const [mounted, setMounted] = useState(false);   // 避免 SSR 水合不一致
-  const { resolvedTheme, setTheme } = useTheme();  // ✅ 由 next-themes 管理
-  // const [isDark, setIsDark] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  // 仅在客户端读取/同步当前主题
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // 点击外部关闭 dropdown
-  useEffect(() => {
-    if (!isDropdownOpen) return;
-    const handleClickOutside = (e: globalThis.MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setIsDropdownOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isDropdownOpen]);
-
-  const toggleTheme = () => {
-    if (!mounted) return;
-    resolvedTheme === "light" ? setTheme("dark") : setTheme("light");
-    localStorage.removeItem("theme-v1");
-  };
-
-  const toggleDropdown = () => setIsDropdownOpen((v) => !v);
-  const closeDropdown = () => setIsDropdownOpen(false);
+  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
   const pathname = usePathname();
-  const { push } = useViewTransitionRouter();
-  const isArticlePage = pathname?.startsWith("/archives/") && pathname !== "/archives";
+  const { push, closeArticle } = useViewTransitionRouter();
+  const reduceMotion = useReducedMotion();
+  const isArticle = pathname.startsWith("/archives/");
+  useEffect(() => { setMounted(true); }, []);
 
-  const handleBackToArchives = (event: ReactMouseEvent<HTMLAnchorElement>) => {
-    if (!isArticlePage) return;
-    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) {
-      return;
-    }
+  const navigate = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
     event.preventDefault();
-    push("/archives");
+    push(href);
   };
 
-  const navItems = [
-    { href: "/archives", label: "文库", icon: Home },
-    { href: "/about", label: "关于", icon: Info },
-    { href: "/dashboard", label: "应用", icon: Briefcase },
-    { href: "/mine", label: "我的", icon: Mail },
-  ];
-
-  return (
-    <>
-    {/* 回主页按钮 */}
-      <header className="sticky top-0 z-50 w-full border-b border-border/20 backdrop-blur-md">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            <div className="flex items-center cursor-pointer ml-8" onClick={closeDropdown}>
-              {isArticlePage ? (
-                <>
-                  <div className="flex-shrink-0 mr-3">
-                    <div className="h-10 w-10 rounded-full bg-white/10 text-foreground flex items-center justify-center transition duration-300 ease-elastic hover:scale-110">
-                      <ArrowLeft className="h-5 w-5" />
-                    </div>
-                  </div>
-                  <div className="flex-shrink-0">
-                    <h1 className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                      <Link href="/archives" onClick={handleBackToArchives}>
-                        返回文库
-                      </Link>
-                    </h1>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="flex-shrink-0 mr-3">
-                    <ImageWithFallback
-                      src={elaina2.src}
-                      alt="avatar"
-                      className="h-10 w-10 rounded-full transform transition duration-500 ease-elastic hover:scale-110"
-                    />
-                  </div>
-
-                  <div className="flex-shrink-0">
-                    <h1 className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                      <Link href="/">Eden的笔记</Link>
-                    </h1>
-                  </div>
-                </>
-              )}
-            </div>
-
-            <div className="flex items-center space-x-4">
-              {/* 导航栏 */}
-              <nav className="hidden md:block">
-                <div className="flex items-center space-x-8">
-                  {navItems.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className="text-foreground hover:text-primary transition-colors cursor-pointer relative group"
-                    >
-                      {item.label}
-                      <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300" />
-                    </Link>
-                  ))}
-                </div>
-              </nav>
-
-            {/* 切换主题（mounted 后再渲染，避免水合不一致） */}
-            {mounted && (
-              <Button
-                aria-label="Toggle theme"
-                variant="ghost"
-                size="icon"
-                onClick={() => toggleTheme()}
-                className="w-9 h-9 cursor-pointer hover:bg-black/10 hover:text-white transition-all duration-300"
-              >
-                {resolvedTheme === "light" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-              </Button>
-            )}
-
-            {/* 移动端下拉菜单（取代侧边栏抽屉） */}
-            <div className="relative md:hidden" ref={dropdownRef}>
-              <Button
-                aria-label="Open menu"
-                variant="ghost"
-                size="icon"
-                className="cursor-pointer hover:bg-black/10 hover:text-white transition-all duration-300"
-                onClick={toggleDropdown}
-              >
-                {isDropdownOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-              </Button>
-
-              {isDropdownOpen && (
-                <div className="absolute right-0 top-full mt-2 w-72 bg-background/95 backdrop-blur-md border border-border/30 rounded-lg shadow-xl z-50 animate-dropdown-in">
-                  {/* Dropdown Header */}
-                  <div className="px-4 py-3 border-b border-border/30 bg-gradient-primary/10">
-                    <h3 className="font-medium text-foreground">Navigation</h3>
-                  </div>
-
-                  {/* Navigation Items */}
-                  <div className="py-2">
-                    {navItems.map((item, index) => {
-                      const IconComponent = item.icon;
-                      return (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          onClick={closeDropdown}
-                          className="flex items-center px-4 py-3 text-foreground hover:bg-gradient-primary/10 hover:text-primary transition-colors cursor-pointer group"
-                          style={{ animationDelay: `${index * 50}ms` }}
-                        >
-                          <div className="flex items-center justify-center w-8 h-8 rounded-md bg-gradient-primary/20 text-primary group-hover:bg-gradient-primary group-hover:text-white transition-all duration-200 mr-3">
-                            <IconComponent className="h-4 w-4" />
-                          </div>
-                          <span className="font-medium">{item.label}</span>
-                          <ArrowRight className="h-4 w-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
-                        </Link>
-                      );
-                    })}
-                  </div>
-
-                  {/* Dropdown Footer */}
-                  {/* <div className="px-4 py-3 border-t border-border/30">
-                    <Button
-                      className="w-full bg-gradient-primary hover:bg-gradient-secondary transition-all duration-300 cursor-pointer text-sm"
-                      onClick={closeDropdown}
-                    >
-                      Get Started
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </div> */}
-                </div>
-              )}
-            </div>
-          </div>
-
-          </div>
-        </div>
-      </header>
-      </>
-  );
+  return <header className="site-header">
+    <a className="skip-link" href="#main-content">跳到正文</a>
+    <div className="site-dock liquid-glass" onPointerMove={moveGlassHighlight}>
+      <Link href="/" className="dock-brand" aria-label="EdenX 首页" onClick={(event) => navigate(event, "/")}>
+        <img src="/imgs/elaina2.jpg" alt="" width="38" height="38" className="dock-avatar" />
+        <span>Eden<span className="dock-brand__x">X</span><small>日常手记</small></span>
+      </Link>
+      <span className="dock-divider" aria-hidden="true" />
+      <nav className="dock-nav" aria-label="主导航">
+        {navItems.map(({ href, label, icon: Icon }) => {
+          const active = pathname === href || pathname.startsWith(`${href}/`);
+          return <Link key={href} href={href} className={`dock-link${active ? " is-active" : ""}`}
+            aria-current={active ? "page" : undefined} onClick={(event) => navigate(event, href)}>
+            {active && <motion.span className="dock-active" layoutId="dock-active"
+              transition={reduceMotion ? { duration: 0 } : { type: "spring", stiffness: 380, damping: 32 }} />}
+            <Icon size={18} strokeWidth={1.65} aria-hidden="true" /><span>{label}</span>
+          </Link>;
+        })}
+      </nav>
+      <span className="dock-divider dock-divider--end" aria-hidden="true" />
+      <button className="dock-theme" disabled={!mounted}
+        aria-label={mounted && resolvedTheme === "dark" ? "切换浅色模式" : "切换深色模式"}
+        title={mounted && resolvedTheme === "dark" ? "切换浅色模式" : "切换深色模式"}
+        onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}>
+        {mounted && resolvedTheme === "dark" ? <Sun size={18} strokeWidth={1.65} /> : <Moon size={18} strokeWidth={1.65} />}
+      </button>
+    </div>
+    {isArticle && <button className="reader-back liquid-glass" onClick={closeArticle} aria-label="关闭文章，返回卡片">
+      <ArrowLeft size={17} /><span>返回</span>
+    </button>}
+    {isArticle && <button className="reader-close liquid-glass" onClick={closeArticle} aria-label="收起文章" title="收起文章 · Esc"><X size={19} /></button>}
+  </header>;
 }

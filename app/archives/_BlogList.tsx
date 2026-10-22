@@ -1,332 +1,68 @@
 "use client";
 
-import Link from "next/link";
-import { useState, type CSSProperties } from "react";
+import { ArrowDown, BookOpen, Grid2X2, List, Search, SearchX, X } from "lucide-react";
 import type { PostMeta } from "@/lib/posts";
-import { Card } from "@/components/ui/card";
-import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
-import { Badge } from "@/components/ui/badge";
+import { ArticleCard } from "@/components/blog/ArticleCard";
 import { useViewTransitionRouter } from "@/components/useViewTransitionRouter";
-import { Button } from "@/components/ui/button";
-import { 
-  Calendar,
-  Clock,
-  Eye,
-  ArrowRight,
-  Search,
-  Filter,
-  Grid,
-  List,
-  Bookmark,
-  TrendingUp
-} from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { PopupNotification } from "@/components/PopupNotification";
 
-// 把你贴的 BlogListPage 改成接收 posts，从 PostMeta 渲染；跳转用 Link/router
 export default function BlogList({ posts }: { posts: PostMeta[] }) {
-  const [searchTerm, setSearchTerm] = useState('');
-  const filtered = posts.filter(p =>
-    p.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    p.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    p.tags.some(t => t.toLowerCase().includes(searchTerm.toLowerCase()))
+  const { archiveState, setArchiveState } = useViewTransitionRouter();
+  const { query, category, view } = archiveState;
+  const categories = ["全部", ...new Set(posts.map((post) => post.category || "随笔"))];
+  const keyword = query.trim().toLocaleLowerCase();
+  const filtered = posts.filter((post) =>
+    (category === "全部" || (post.category || "随笔") === category) &&
+    [post.title, post.excerpt, ...post.tags].some((value) => value.toLocaleLowerCase().includes(keyword))
   );
-  const featured = filtered.filter(p => p.featured);
-  const regular = filtered;
+  const featured = !keyword && category === "全部" && view === "grid" ? filtered.find((post) => post.featured) : undefined;
+  const ordered = featured ? [featured, ...filtered.filter((post) => post.slug !== featured.slug)] : filtered;
+  const setFilter = (patch: Partial<typeof archiveState>) => setArchiveState((previous) => ({ ...previous, ...patch }));
 
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const { push } = useViewTransitionRouter();
-
-  const [notification, setNotification] = useState(false);
-
-  const triggerPopup = () => {
-    setNotification(true);
-  }
-
-  const handlePopupComplete = () => {
-    setNotification(false);
-  }
-
-  // …把你原来的 UI 贴过来…
-  // 关键改动：卡片点击的跳转
-  // <Link href={`/archives/${post.slug}`} className="block">...</Link>
-  // 或 onClick={() => router.push(`/archives/${post.slug}`)}
-  const BlogCard = ({ post, featured = false }: { post: PostMeta; featured?: boolean }) => (
-    <Card 
-      className={`group cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl bg-white/50 dark:bg-black/20 backdrop-blur-sm border-white/20 dark:border-white/10 overflow-hidden ${
-        featured ? 'lg:col-span-2' : ''
-      }`}
-      onClick={() => push(`/archives/${post.slug}`)}
-    >
-      <div className={`relative ${featured ? 'h-80' : 'h-48'} overflow-hidden`}>
-        <ImageWithFallback
-          src={post.cover}
-          alt={post.title}
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-          style={
-            {
-              viewTransitionName: `cover-${post.slug}`,
-              viewTransitionClass: "cover",
-            } as CSSProperties
-          }
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-        <div className="absolute top-4 left-4">
-          <Badge className="bg-white/20 text-white border-white/30 backdrop-blur-sm">
-            {post.category}
-          </Badge>
-        </div>
-        {featured && (
-          <div className="absolute top-4 right-4">
-            <Badge className="bg-gradient-primary text-white border-0">
-              {/* <TrendingUp className="w-3 h-3 mr-1" /> */}
-              推荐
-            </Badge>
+  return <main className="journal-page">
+    <section className="journal-hero">
+      <div className="journal-hero__scene" aria-hidden="true" />
+      <div className="journal-hero__grid" aria-hidden="true" />
+      <div className="journal-shell journal-hero__content">
+        <p className="eyebrow hero-reveal">THE JOURNAL <span /> EDENX</p>
+        <h1 className="journal-hero__title hero-reveal">坐看云起时<span>。</span></h1>
+        <p className="journal-hero__description hero-reveal">王维<span aria-hidden="true"> · </span>《终南别业》</p>
+        <div className="journal-hero__bottom hero-reveal">
+          <div className="journal-signature">
+            <img src="/imgs/elaina2.jpg" alt="" width="36" height="36" />
+            <div><span>Eden 的笔记</span><small>随笔、技术与日常</small></div>
           </div>
-        )}
-        <div className="absolute bottom-4 left-4 right-4">
-          <h3 className={`text-white mb-2 line-clamp-2 group-hover:text-blue-200 transition-colors ${
-            featured ? 'text-2xl font-bold' : 'text-lg font-semibold'
-          }`}>
-            {post.title}
-          </h3>
-          {featured && (
-            <p className="text-white/90 text-sm line-clamp-2 mb-3">
-              {post.excerpt}
-            </p>
-          )}
+          <a href="#articles" className="hero-scroll"><span>向下探索</span><ArrowDown size={15} /></a>
         </div>
       </div>
-      
-      <div className="p-6">
-        {!featured && (
-          <p className="text-muted-foreground text-sm line-clamp-3 mb-4">
-            {post.excerpt}
-          </p>
-        )}
-        
-        <div className="flex flex-wrap gap-2 mb-4">
-          {post.tags.slice(0, 3).map((tag) => (
-            <Badge key={tag} variant="secondary" className="text-xs">
-              {tag}
-            </Badge>
-          ))}
-        </div>
-        
-        <div className="flex items-center justify-between text-sm text-muted-foreground">
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-1">
-              <Calendar className="w-4 h-4" />
-              <span>{post.date}</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <Clock className="w-4 h-4" />
-              <span>{post.readTime}</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <Eye className="w-4 h-4" />
-              <span>{post.views.toLocaleString()}</span>
-            </div>
-          </div>
-          <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+    </section>
+    <section className="journal-shell journal-articles" id="articles" aria-labelledby="articles-heading">
+      <div className="section-heading">
+        <div><p className="eyebrow section-eyebrow">IDEAS, NOTES & EVERYTHING BETWEEN</p><h2 id="articles-heading">文章与思考<span className="article-count">{posts.length.toString().padStart(2, "0")}</span></h2></div>
+        <div className="view-switch liquid-glass" role="group" aria-label="文章显示方式">
+          <button aria-label="网格视图" aria-pressed={view === "grid"} className={view === "grid" ? "is-active" : ""} onClick={() => setFilter({ view: "grid" })}><Grid2X2 size={17} /></button>
+          <button aria-label="列表视图" aria-pressed={view === "list"} className={view === "list" ? "is-active" : ""} onClick={() => setFilter({ view: "list" })}><List size={18} /></button>
         </div>
       </div>
-    </Card>
-  );
-
-  const BlogListItem = ({ post }: { post: PostMeta }) => (
-    <Card 
-      className="group cursor-pointer transition-all duration-300 hover:shadow-lg bg-white/50 dark:bg-black/20 backdrop-blur-sm border-white/20 dark:border-white/10"
-      onClick={() => push(`/archives/${post.slug}`)}
-    >
-      <div className="p-6">
-        <div className="flex gap-6">
-          <div className="flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden">
-            <ImageWithFallback
-              src={post.cover}
-              alt={post.title}
-              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-              style={
-                {
-                  viewTransitionName: `cover-${post.slug}`,
-                  viewTransitionClass: "cover",
-                } as CSSProperties
-              }
-            />
-          </div>
-          
-          <div className="flex-1 min-w-0">
-            <div className="flex items-start justify-between mb-2">
-              <h3 className="text-lg font-semibold line-clamp-2 group-hover:text-primary transition-colors">
-                {post.title}
-              </h3>
-              <Badge variant="secondary" className="ml-2 flex-shrink-0">
-                {post.category}
-              </Badge>
-            </div>
-            
-            <p className="text-muted-foreground text-sm line-clamp-2 mb-3">
-              {post.excerpt}
-            </p>
-            
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                <span>{post.author}</span>
-                <span>•</span>
-                <span>{post.date}</span>
-                <span>•</span>
-                <span>{post.readTime}</span>
-                <span>•</span>
-                <span>{post.views.toLocaleString()} views</span>
-              </div>
-              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </div>
-          </div>
+      <div className="journal-toolbar">
+        <div className="category-filters" role="group" aria-label="按分类筛选">
+          {categories.map((item) => <button key={item} aria-pressed={category === item}
+            className={`category-filter${category === item ? " is-active" : ""}`}
+            onClick={() => setFilter({ category: item })}>{item}{item === "全部" && <span>{posts.length}</span>}</button>)}
+        </div>
+        <div className="journal-search liquid-glass">
+          <Search size={16} aria-hidden="true" />
+          <input type="search" aria-label="搜索文章标题、内容摘要或标签" placeholder="寻找一点灵感…" value={query} onChange={(event) => setFilter({ query: event.target.value })} />
+          {query ? <button onClick={() => setFilter({ query: "" })} aria-label="清空搜索"><X size={14} /></button> : <span className="search-hint">搜索</span>}
         </div>
       </div>
-    </Card>
-  );
-
-  return (
-    // 你的渲染结构...
-    // 例子：
-    <div className="min-h-screen cursor-custom bg-radial pt-20">
-      {/* 调试 */}
-      {/* <div className="text-sm opacity-60 mb-4">Found {posts.length} posts</div> */}
-      {/* <div className="text-sm opacity-60 mb-4">Search term: {searchTerm}</div> */}
-      
-      {/* 搜索输入框改写 setSearchTerm */}
-      {/* Featured/Regular mapping 里用 post.slug */}
-      {/* Link href={`/archives/${post.slug}`} */}
-      <section className="py-16">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              文章汇总
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              关于各种技术、开发、和设计的见解、教程和想法
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Articles */}
-      {featured.length > 0 && (
-        <section className="pb-16">
-          <div className="container mx-auto px-6 lg:px-12">
-            <h2 className="text-2xl font-semibold mb-8">Featured Articles</h2>
-            <div className="grid lg:grid-cols-3 gap-8">
-              {featured.map((post) => (
-                <BlogCard key={post.slug} post={post} featured />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      <section className="py-16">
-        <div className="container mx-auto px-6 lg:px-12">
-                 {/* Search and Controls */}
-          <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-12">
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-              <Input
-                type="text"
-                placeholder="Search articles..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 bg-white/50 dark:bg-black/20 backdrop-blur-sm border-white/20 dark:border-white/10"
-              />
-            </div>
-            
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <Button
-                  variant={viewMode === 'grid' ? 'default' : 'ghost'}
-                  size="sm"
-                  onClick={() => setViewMode('grid')}
-                  className={viewMode === 'grid' ? 'bg-gradient-primary' : ''}
-                >
-                  <Grid className="w-4 h-4" />
-                </Button>
-                <Button
-                  variant={viewMode === 'list' ? 'default' : 'ghost'}
-                  size="sm"
-                  onClick={() => setViewMode('list')}
-                  className={viewMode === 'list' ? 'bg-gradient-primary' : ''}
-                >
-                  <List className="w-4 h-4" />
-                </Button>
-              </div>
-              
-              <Button variant="outline" size="sm" className="gap-2">
-                <Filter className="w-4 h-4" />
-                Filter
-              </Button>
-              
-              <Button variant="outline" size="sm" className="gap-2">
-                <Bookmark className="w-4 h-4" />
-                Saved
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-      {/* Regular Articles */}
-      <section className="pb-16">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-semibold">
-              All Articles {searchTerm && `(${filtered.length} results)`}
-            </h2>
-            <span className="text-muted-foreground">
-              {regular.length} articles
-            </span>
-          </div>
-          
-          {viewMode === 'grid' ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {regular.map((post) => (
-                <BlogCard key={post.slug} post={post} />
-              ))}
-            </div>
-          ) : (
-            <div className="space-y-6">
-              {regular.map((post) => (
-                <BlogListItem key={post.slug} post={post} />
-              ))}
-            </div>
-          )}
-
-          {filtered.length === 0 && (
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">No articles found matching your search.</p>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* Load More */}
-      {regular.length > 0 && (
-        <section className="pb-16">
-          <div className="container mx-auto px-6 lg:px-12 text-center">
-            <Button variant="outline" size="lg" className="gap-2" onClick={triggerPopup}>
-              浏览更多
-              <ArrowRight className="w-4 h-4" />
-            </Button>
-          </div>
-        </section>
-      )}
-
-      <PopupNotification
-        isVisible={notification}
-        onComplete={handlePopupComplete}
-        message="暂时没有更多了"
-        type="info"
-      />
-    </div>
-  );
+      <p className="search-results" role="status" aria-live="polite">{keyword || category !== "全部" ? `找到 ${filtered.length} 篇笔记` : `共 ${posts.length} 篇笔记`}</p>
+      {ordered.length ? <div className={`article-grid${view === "list" ? " article-grid--list" : ""}`}>
+        {ordered.map((post) => <ArticleCard key={post.slug} post={post} featured={post === featured} list={view === "list"} />)}
+      </div> : <div className="journal-empty liquid-glass">
+        <SearchX size={32} strokeWidth={1.3} /><h3>还没有找到这份灵感</h3><p>换个关键词，或者去看看全部笔记。</p>
+        <button onClick={() => setFilter({ query: "", category: "全部" })}>浏览全部文章<BookOpen size={15} /></button>
+      </div>}
+      {ordered.length > 0 && <div className="journal-end"><span /><p>待续</p><span /></div>}
+    </section>
+  </main>;
 }

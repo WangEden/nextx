@@ -33,7 +33,7 @@ interface SidebarProps {
 export const Sidebar: React.FC<SidebarProps> = ({ author, stats, onTriggerPopup }) => (
   <div className="space-y-6">
     {/* Author Info */}
-    <Card className="p-6 bg-white/50 dark:bg-black/20 backdrop-blur-sm border-white/20 dark:border-white/10">
+    <Card className="p-6 liquid-glass article-info-card">
       <div className="flex items-center gap-4 mb-4">
         {/* <Avatar className="w-16 h-16">
           <div className="w-full h-full bg-gradient-primary rounded-full flex items-center justify-center">
@@ -52,27 +52,27 @@ export const Sidebar: React.FC<SidebarProps> = ({ author, stats, onTriggerPopup 
         </div>
       </div>
       <p className="text-sm text-muted-foreground mb-4">{author.description}</p>
-      <Button variant="outline" size="sm" className="w-full" onClick={onTriggerPopup}>Follow Author</Button>
+      <Button variant="outline" size="sm" className="w-full" onClick={onTriggerPopup}>打个招呼</Button>
     </Card>
 
     {/* Stats */}
-    <Card className="p-6 bg-white/50 dark:bg-black/20 backdrop-blur-sm border-white/20 dark:border-white/10">
-      <h3 className="font-semibold mb-4">Article Statistics</h3>
+    <Card className="p-6 liquid-glass article-info-card">
+      <h3 className="font-semibold mb-4">这篇笔记</h3>
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-sm"><Eye className="w-4 h-4" />Views</div>
+          <div className="flex items-center gap-2 text-sm"><Eye className="w-4 h-4" />浏览</div>
           <span className="font-medium">{stats.views}</span>
         </div>
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-sm"><Heart className="w-4 h-4" />Likes</div>
+          <div className="flex items-center gap-2 text-sm"><Heart className="w-4 h-4" />喜欢</div>
           <span className="font-medium">{stats.likes}</span>
         </div>
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-sm"><MessageCircle className="w-4 h-4" />Comments</div>
+          <div className="flex items-center gap-2 text-sm"><MessageCircle className="w-4 h-4" />评论</div>
           <span className="font-medium">{stats.comments}</span>
         </div>
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-sm"><Share2 className="w-4 h-4" />Shares</div>
+          <div className="flex items-center gap-2 text-sm"><Share2 className="w-4 h-4" />分享</div>
           <span className="font-medium">{stats.shares}</span>
         </div>
       </div>

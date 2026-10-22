@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
 import { ArticlePage } from "./_ArticlePage";
 // import dynamic from "next/dynamic";
-import { FloatingActionMenu } from "@/components/FloatingActionMenu";
 
 const SITE_URL = "https://edenx.me";
 
@@ -69,8 +68,6 @@ export default async function PostPage({ params }: Props) {
   return (
     <div className="min-h-screen cursor-custom">
       <ArticlePage post={post} likes={likes} />
-      {/* 右下角浮动菜单 */}
-      <FloatingActionMenu />
     </div>
   );
 }

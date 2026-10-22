@@ -346,8 +346,20 @@ thead {
 
 /* 统一 Markdown 正文的基础排版 */
 .markdown-rendered {
+  font-family: var(--font-wenkai), sans-serif;
   line-height: 1.7;
   font-size: 16px;
+}
+
+.markdown-rendered strong {
+  font-family: inherit;
+}
+
+.markdown-rendered code,
+.markdown-rendered pre,
+.markdown-rendered kbd,
+.markdown-rendered samp {
+  font-family: var(--font-wenkai-mono), ui-monospace, monospace;
 }
 
 /* 段落、列表、代码块、表格等块级内容的上下间距 */

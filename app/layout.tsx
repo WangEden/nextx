@@ -1,6 +1,7 @@
 // layout.tsx
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import "./liquid-glass.css";
 import localFont from "next/font/local";
 import { ThemeProvider } from "next-themes";
 // import AutoSunsetTheme from "@/components/function/AutoSunsetTheme";
@@ -12,6 +13,8 @@ import PwaSplashLinks from "@/components/PwaSplashLinks";
 import 'katex/dist/katex.min.css';
 
 import { VisitorTracker } from "@/components/VisitorTracker";
+import { ArticleTransitionProvider } from "@/components/ArticleTransitionProvider";
+import { LiquidGlassEnvironment } from "@/components/LiquidGlass";
 
 // 字体：无衬线（正文）— 纤黑/常规/中等
 const wenkai = localFont({
@@ -40,6 +43,7 @@ const wenkaiMono = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://edenx.me"),
   title: "EdenX",
   description: "Eden的笔记",
   manifest: "/manifest.json",
@@ -80,7 +84,7 @@ export default function RootLayout({
         <PwaSplashLinks />
         <meta name="msvalidate.01" content="D031115EBF62CB35F2ACB25CAC665807" />
       </head>
-      <body className={`${wenkai.className} ${wenkaiMono.className} min-h-screen cursor-custom antialiased overflow-x-hidden pt-safe pb-safe`}>
+      <body className="min-h-screen cursor-custom antialiased overflow-x-hidden pt-safe pb-safe">
         <ThemeProvider 
           attribute="class"   // 使用 class 切换主题
           defaultTheme="system"   // 跟随系统
@@ -90,10 +94,13 @@ export default function RootLayout({
           // disableTransitionOnChange // 切换主题时禁用 CSS 过渡
         >
           {/* 移除 AutoSunsetTheme */}
-          <Header />
-          <VisitorTracker />
-          {children}
-          <Footer />
+          <ArticleTransitionProvider>
+            <LiquidGlassEnvironment />
+            <Header />
+            <VisitorTracker />
+            <div id="main-content" tabIndex={-1}>{children}</div>
+            <Footer />
+          </ArticleTransitionProvider>
         </ThemeProvider>
       </body>
     </html>
