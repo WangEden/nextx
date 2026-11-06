@@ -10,7 +10,7 @@ export function ImageWithFallback(
   props: ImgHTMLAttributes<HTMLImageElement>
 ) {
   const [didError, setDidError] = useState(false);
-  const { src, alt, className, style, ...rest } = props;
+  const { src, srcSet, sizes, alt, className, style, ...rest } = props;
 
   if (didError) {
     return (
@@ -33,6 +33,8 @@ export function ImageWithFallback(
   return (
     <img
       src={src}
+      srcSet={srcSet}
+      sizes={sizes}
       alt={alt}
       className={className}
       style={style}

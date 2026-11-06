@@ -1,0 +1,379 @@
+{
+  "backdrop": "/imgs/web/ambient-960.webp",
+  "images": {
+    "/imgs/default/pexels-stywo-1668246.jpg": [
+      {
+        "src": "/imgs/web/archive-768.webp",
+        "width": 768
+      },
+      {
+        "src": "/imgs/web/archive-1280.webp",
+        "width": 1280
+      },
+      {
+        "src": "/imgs/web/archive-1920.webp",
+        "width": 1920
+      },
+      {
+        "src": "/imgs/web/archive-2560.webp",
+        "width": 2560
+      }
+    ],
+    "/imgs/elaina2.jpg": [
+      {
+        "src": "/imgs/web/eden-80.webp",
+        "width": 80
+      },
+      {
+        "src": "/imgs/web/eden-128.webp",
+        "width": 128
+      }
+    ],
+    "/imgs/avatar/flower.jpg": [
+      {
+        "src": "/imgs/web/flower-80.webp",
+        "width": 80
+      },
+      {
+        "src": "/imgs/web/flower-128.webp",
+        "width": 128
+      }
+    ],
+    "/imgs/articleCover/3D打印机笔记.jpg": [
+      {
+        "src": "/imgs/web/c0de37fc8-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/imgs/web/c0de37fc8-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/imgs/web/c0de37fc8-1022.webp",
+        "width": 1022
+      }
+    ],
+    "/imgs/articleCover/3d-printer-notes.jpg": [
+      {
+        "src": "/imgs/web/266a123ab-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/imgs/web/266a123ab-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/imgs/web/266a123ab-1022.webp",
+        "width": 1022
+      }
+    ],
+    "/imgs/articleCover/NCNN.jpg": [
+      {
+        "src": "/imgs/web/523818b7e-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/imgs/web/523818b7e-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/imgs/web/523818b7e-1359.webp",
+        "width": 1359
+      }
+    ],
+    "/imgs/articleCover/找实习.jpg": [
+      {
+        "src": "/imgs/web/4f675d932-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/imgs/web/4f675d932-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/imgs/web/4f675d932-1440.webp",
+        "width": 1440
+      }
+    ],
+    "/imgs/articleCover/机械臂.jpg": [
+      {
+        "src": "/imgs/web/32561e0b2-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/imgs/web/32561e0b2-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/imgs/web/32561e0b2-1080.webp",
+        "width": 1080
+      }
+    ],
+    "/imgs/default/017a895cf79140a801205e4b13bcf1.jpg": [
+      {
+        "src": "/imgs/web/a9df2162b-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/imgs/web/a9df2162b-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/imgs/web/a9df2162b-1440.webp",
+        "width": 1440
+      }
+    ],
+    "/imgs/default/0d0d2b69fc3c775acacf2aa6d8071d58c3c985b9.jpg": [
+      {
+        "src": "/imgs/web/3882efdb4-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/imgs/web/3882efdb4-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/imgs/web/3882efdb4-1440.webp",
+        "width": 1440
+      }
+    ],
+    "/imgs/default/201509240935246992597.jpg": [
+      {
+        "src": "/imgs/web/1578fcd6e-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/imgs/web/1578fcd6e-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/imgs/web/1578fcd6e-1440.webp",
+        "width": 1440
+      }
+    ],
+    "/imgs/default/20190305101759SMjKP.jpg": [
+      {
+        "src": "/imgs/web/2e6f89e4f-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/imgs/web/2e6f89e4f-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/imgs/web/2e6f89e4f-1440.webp",
+        "width": 1440
+      }
+    ],
+    "/imgs/default/3576ac4967f7d404ef817484a18c8cf98cdade63.jpg": [
+      {
+        "src": "/imgs/web/838382925-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/imgs/web/838382925-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/imgs/web/838382925-1440.webp",
+        "width": 1440
+      }
+    ],
+    "/imgs/default/603d504c0f6485ca0e658741d8d95e39.jpg": [
+      {
+        "src": "/imgs/web/2f4df7c1f-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/imgs/web/2f4df7c1f-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/imgs/web/2f4df7c1f-1440.webp",
+        "width": 1440
+      }
+    ],
+    "/imgs/default/639ade49472a606ac291c86837f50109.jpg": [
+      {
+        "src": "/imgs/web/7a6a35b98-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/imgs/web/7a6a35b98-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/imgs/web/7a6a35b98-1440.webp",
+        "width": 1440
+      }
+    ],
+    "/imgs/default/6b4fb36723c33aba500509d322691c35521a761e9dd36-siu35d.jpg": [
+      {
+        "src": "/imgs/web/82ba5fcb4-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/imgs/web/82ba5fcb4-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/imgs/web/82ba5fcb4-1440.webp",
+        "width": 1440
+      }
+    ],
+    "/imgs/default/7d0c3a2e113cb203a3c5de47bb56d0b7.jpg": [
+      {
+        "src": "/imgs/web/19566ed01-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/imgs/web/19566ed01-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/imgs/web/19566ed01-1440.webp",
+        "width": 1440
+      }
+    ],
+    "/imgs/default/8b8ef5212bfb42756c9fd92991cf10b4.jpg": [
+      {
+        "src": "/imgs/web/54b6ff389-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/imgs/web/54b6ff389-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/imgs/web/54b6ff389-1440.webp",
+        "width": 1440
+      }
+    ],
+    "/imgs/default/8c09895aa0fa65c6e8c1048b667be7bd.jpg": [
+      {
+        "src": "/imgs/web/6ecce0128-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/imgs/web/6ecce0128-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/imgs/web/6ecce0128-1440.webp",
+        "width": 1440
+      }
+    ],
+    "/imgs/default/QQ图片20201007154545.jpg": [
+      {
+        "src": "/imgs/web/d63a4b9b3-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/imgs/web/d63a4b9b3-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/imgs/web/d63a4b9b3-1440.webp",
+        "width": 1440
+      }
+    ],
+    "/imgs/default/QQ图片20220304161918.jpg": [
+      {
+        "src": "/imgs/web/5affea2c2-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/imgs/web/5affea2c2-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/imgs/web/5affea2c2-1440.webp",
+        "width": 1440
+      }
+    ],
+    "/imgs/default/ad3ca10831525cb235258d7474562177.png": [
+      {
+        "src": "/imgs/web/8a98c5939-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/imgs/web/8a98c5939-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/imgs/web/8a98c5939-1440.webp",
+        "width": 1440
+      }
+    ],
+    "/imgs/default/elaina.jpg": [
+      {
+        "src": "/imgs/web/0cbde9323-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/imgs/web/0cbde9323-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/imgs/web/0cbde9323-1440.webp",
+        "width": 1440
+      }
+    ],
+    "/imgs/default/f0d6d3251328ae50f562631270dda66b.jpg": [
+      {
+        "src": "/imgs/web/df840caee-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/imgs/web/df840caee-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/imgs/web/df840caee-1440.webp",
+        "width": 1440
+      }
+    ],
+    "/imgs/default/sunflower girl.jpg": [
+      {
+        "src": "/imgs/web/bbf1906f1-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/imgs/web/bbf1906f1-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/imgs/web/bbf1906f1-1440.webp",
+        "width": 1440
+      }
+    ],
+    "/imgs/default/wallhaven-q2wgpl_3840x2160.jpg": [
+      {
+        "src": "/imgs/web/201707c57-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/imgs/web/201707c57-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/imgs/web/201707c57-1440.webp",
+        "width": 1440
+      }
+    ],
+    "/imgs/default/星之旅_4K_feb2a.jpg": [
+      {
+        "src": "/imgs/web/b4490aec6-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/imgs/web/b4490aec6-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/imgs/web/b4490aec6-1440.webp",
+        "width": 1440
+      }
+    ]
+  }
+}

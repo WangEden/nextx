@@ -10,7 +10,7 @@ export default async function page() {
 
   return (
     <main className="home-page">
-      <HeroSection posts={posts}/>
+      <HeroSection postCount={posts.length} />
       <FeaturesSection posts={randomSix} />
       <CTASection />
     </main>

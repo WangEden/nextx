@@ -5,6 +5,7 @@ import React from "react";
 import { Card } from "@/components/ui/card";
 // import { Avatar } from "@/components/ui/avatar";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { siteImage } from "@/lib/site-images";
 import { Button } from "@/components/ui/button";
 import { Eye, Heart, MessageCircle, Share2, User } from "lucide-react";
 
@@ -41,7 +42,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ author, stats, onTriggerPopup 
           </div>
         </Avatar> */}
         <Avatar className="w-16 h-16">
-          <AvatarImage src={author.avatar} alt={author.name} />
+          {author.avatar && <AvatarImage {...siteImage(author.avatar, "64px")} alt={author.name} />}
           <AvatarFallback className="bg-gradient-primary text-white">
             <User className="w-8 h-8" />
           </AvatarFallback>

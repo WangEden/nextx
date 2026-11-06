@@ -28,6 +28,7 @@ type CodeMeta = {
 };
 
 import './MarkdownRenderer.css';
+import "katex/dist/katex.min.css";
 import { table } from 'console';
 
 interface MarkdownRendererProps {
@@ -387,7 +388,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
             return <h6 id={id}>♪⁶ {props.children}</h6>;
           },
           img: ({ node, ...props }) => (
-            <img {...props} className="markdown-img" alt={props.alt || ''} />
+            <img {...props} className="markdown-img" alt={props.alt || ''} loading="lazy" decoding="async" />
           ),
           pre: BlockCode,   // ✅ 块级代码渲染：交给你的 CodeBlock
           code: InlineCode, // ✅ 行内代码渲染：保持 <code>

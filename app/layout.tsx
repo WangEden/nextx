@@ -2,45 +2,17 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import "./liquid-glass.css";
-import localFont from "next/font/local";
+import "./wenkai.generated.css";
 import { ThemeProvider } from "next-themes";
 // import AutoSunsetTheme from "@/components/function/AutoSunsetTheme";
 import Header from "@/components/header"
 import { Footer } from "@/components/footer";
 import PwaSplashLinks from "@/components/PwaSplashLinks";
 // import { useEffect } from "react";
-// app/layout.tsx
-import 'katex/dist/katex.min.css';
-
 import { VisitorTracker } from "@/components/VisitorTracker";
 import { ArticleTransitionProvider } from "@/components/ArticleTransitionProvider";
 import { LiquidGlassEnvironment } from "@/components/LiquidGlass";
-
-// 字体：无衬线（正文）— 纤黑/常规/中等
-const wenkai = localFont({
-  src: [
-    { path: "../public/fonts/LXGWWenKai-Light.ttf",   weight: "300", style: "normal" },
-    { path: "../public/fonts/LXGWWenKai-Regular.ttf", weight: "400", style: "normal" },
-    { path: "../public/fonts/LXGWWenKai-Medium.ttf",  weight: "500", style: "normal" },
-  ],
-  variable: "--font-wenkai",
-  display: "swap",
-  fallback: ["system-ui", "Segoe UI", "Helvetica", "Arial"],
-  adjustFontFallback: false, // 避免 Next 注入的度量替代引起跳动
-});
-
-// 字体：等宽（代码）— 纤黑/常规/中等
-const wenkaiMono = localFont({
-  src: [
-    { path: "../public/fonts/LXGWWenKaiMono-Light.ttf",   weight: "300", style: "normal" },
-    { path: "../public/fonts/LXGWWenKaiMono-Regular.ttf", weight: "400", style: "normal" },
-    { path: "../public/fonts/LXGWWenKaiMono-Medium.ttf",  weight: "500", style: "normal" },
-  ],
-  variable: "--font-wenkai-mono",
-  display: "swap",
-  fallback: ["system-ui", "Segoe UI", "Helvetica", "Arial"],
-  adjustFontFallback: false,
-});
+import { DirectionalCursor } from "@/components/DirectionalCursor";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://edenx.me"),
@@ -79,12 +51,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh" suppressHydrationWarning className={`${wenkai.variable} ${wenkaiMono.variable}`}>
+    <html lang="zh" suppressHydrationWarning>
       <head>
         <PwaSplashLinks />
         <meta name="msvalidate.01" content="D031115EBF62CB35F2ACB25CAC665807" />
       </head>
-      <body className="min-h-screen cursor-custom antialiased overflow-x-hidden pt-safe pb-safe">
+      <body className="min-h-screen antialiased overflow-x-hidden pt-safe pb-safe">
+        <DirectionalCursor />
         <ThemeProvider 
           attribute="class"   // 使用 class 切换主题
           defaultTheme="system"   // 跟随系统

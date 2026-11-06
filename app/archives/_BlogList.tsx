@@ -2,6 +2,7 @@
 
 import { ArrowDown, BookOpen, Grid2X2, List, Search, SearchX, X } from "lucide-react";
 import type { PostMeta } from "@/lib/posts";
+import { archiveScene, edenAvatar, siteImage } from "@/lib/site-images";
 import { ArticleCard } from "@/components/blog/ArticleCard";
 import { useViewTransitionRouter } from "@/components/useViewTransitionRouter";
 
@@ -20,7 +21,9 @@ export default function BlogList({ posts }: { posts: PostMeta[] }) {
 
   return <main className="journal-page">
     <section className="journal-hero">
-      <div className="journal-hero__scene" aria-hidden="true" />
+      <div className="journal-hero__scene scene-image" aria-hidden="true">
+        <img {...siteImage(archiveScene, "(max-width: 540px) 150vw, 100vw")} alt="" data-glass-scene="journal" fetchPriority="high" decoding="async" />
+      </div>
       <div className="journal-hero__grid" aria-hidden="true" />
       <div className="journal-shell journal-hero__content">
         <p className="eyebrow hero-reveal">THE JOURNAL <span /> EDENX</p>
@@ -28,7 +31,7 @@ export default function BlogList({ posts }: { posts: PostMeta[] }) {
         <p className="journal-hero__description hero-reveal">王维<span aria-hidden="true"> · </span>《终南别业》</p>
         <div className="journal-hero__bottom hero-reveal">
           <div className="journal-signature">
-            <img src="/imgs/elaina2.jpg" alt="" width="36" height="36" />
+            <img {...siteImage(edenAvatar, "36px")} alt="" width="36" height="36" decoding="async" />
             <div><span>Eden 的笔记</span><small>随笔、技术与日常</small></div>
           </div>
           <a href="#articles" className="hero-scroll"><span>向下探索</span><ArrowDown size={15} /></a>

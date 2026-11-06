@@ -1,5 +1,6 @@
 import { ArrowDown, CalendarDays, Clock, Eye } from "lucide-react";
 import { ImageWithFallback } from "../figma/ImageWithFallback";
+import { siteImage } from "@/lib/site-images";
 
 interface HeroProps {
   title: string;
@@ -13,7 +14,7 @@ interface HeroProps {
 
 export function Hero({ title, subtitle, categories, date, readingTime, views, coverImage }: HeroProps) {
   return <section className="article-hero">
-    <div className="article-hero__image"><ImageWithFallback src={coverImage} alt="" fetchPriority="high" /></div>
+    <div className="article-hero__image"><ImageWithFallback {...siteImage(coverImage, "100vw")} alt="" data-glass-scene="article" fetchPriority="high" decoding="async" /></div>
     <div className="article-hero__scrim" />
     <div className="journal-shell article-hero__content">
       <p className="eyebrow">A PAGE FROM EDEN&apos;S JOURNAL</p>

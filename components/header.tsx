@@ -7,7 +7,8 @@ import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { motion, useReducedMotion } from "motion/react";
 import { useViewTransitionRouter } from "./useViewTransitionRouter";
-import { moveGlassHighlight } from "./LiquidGlass";
+import { useDockInk, useGlassLens } from "./LiquidGlass";
+import { edenAvatar, siteImage } from "@/lib/site-images";
 
 const navItems = [
   { href: "/archives", label: "文库", icon: BookOpen },
@@ -22,6 +23,8 @@ export default function Header() {
   const pathname = usePathname();
   const { push, closeArticle } = useViewTransitionRouter();
   const reduceMotion = useReducedMotion();
+  const dock = useGlassLens<HTMLDivElement>("dock");
+  useDockInk(dock, pathname);
   const isArticle = pathname.startsWith("/archives/");
   useEffect(() => { setMounted(true); }, []);
 
@@ -33,9 +36,9 @@ export default function Header() {
 
   return <header className="site-header">
     <a className="skip-link" href="#main-content">跳到正文</a>
-    <div className="site-dock liquid-glass" onPointerMove={moveGlassHighlight}>
+    <div className="site-dock liquid-glass glass-optical" ref={dock}>
       <Link href="/" className="dock-brand" aria-label="EdenX 首页" onClick={(event) => navigate(event, "/")}>
-        <img src="/imgs/elaina2.jpg" alt="" width="38" height="38" className="dock-avatar" />
+        <img {...siteImage(edenAvatar, "38px")} alt="" width="38" height="38" className="dock-avatar" decoding="async" />
         <span>Eden<span className="dock-brand__x">X</span><small>日常手记</small></span>
       </Link>
       <span className="dock-divider" aria-hidden="true" />
