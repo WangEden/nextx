@@ -5,6 +5,10 @@ import { useEffect, useRef } from "react";
 const TARGET = "data-directional-cursor-target";
 const NATIVE_TARGETS = "input, textarea, select, iframe, [contenteditable]:not([contenteditable='false']), :disabled, [aria-disabled='true'], dialog[open], [popover]";
 const DEFAULT_ANGLE = -135;
+const STEERING_DISTANCE = 8;
+const REVERSAL_DISTANCE = 14;
+const ANGLE_DEADBAND = 6;
+const TURN_RESPONSE_MS = 26;
 
 export function DirectionalCursor() {
   const cursorRef = useRef<HTMLSpanElement>(null);
@@ -22,7 +26,9 @@ export function DirectionalCursor() {
     let lastTarget: Element | null = null;
     let paintedTarget: Element | null = null;
     let origin: { x: number; y: number } | undefined;
-    let angle = DEFAULT_ANGLE;
+    let targetAngle = DEFAULT_ANGLE;
+    let displayedAngle = DEFAULT_ANGLE;
+    let lastTurnFrame: number | undefined;
     let pending: PointerEvent | undefined;
     let frame = 0;
 
@@ -36,47 +42,71 @@ export function DirectionalCursor() {
       frame = 0;
       pending = undefined;
       origin = undefined;
+      lastTurnFrame = undefined;
       lastTarget = null;
       cursor.hidden = true;
       clearTarget();
     };
 
-    const paint = () => {
-      frame = 0;
-      const event = pending;
-      pending = undefined;
-      const target = event?.target;
-      if (!event || !(target instanceof Element) || !target.isConnected) { hide(); return; }
-
-      const x = event.clientX;
-      const y = event.clientY;
+    const steer = (x: number, y: number) => {
       if (!origin) origin = { x, y };
       const dx = x - origin.x;
       const dy = y - origin.y;
-      if (dx * dx + dy * dy >= 4) {
-        const heading = Math.atan2(dy, dx) * 180 / Math.PI;
-        // Turn through the shorter arc, including when crossing -180/180.
-        angle += (((heading - angle) % 360 + 540) % 360) - 180;
-        origin = { x, y };
-      }
+      const distanceSquared = dx * dx + dy * dy;
+      if (distanceSquared < STEERING_DISTANCE ** 2) return;
 
-      if (target !== lastTarget) {
-        clearTarget();
-        lastTarget = target;
-        if (!target.closest(NATIVE_TARGETS)) {
-          const keyword = getComputedStyle(target).cursor.split(",").pop()?.trim();
-          if (keyword === "auto" || keyword === "default" || keyword === "pointer") {
-            paintedTarget = target;
-            target.setAttribute(TARGET, "");
-            cursor.toggleAttribute("data-interactive", keyword === "pointer");
+      const heading = Math.atan2(dy, dx) * 180 / Math.PI;
+      // Unwrap against the last accepted heading, so a reversal keeps its chosen arc.
+      const turn = (((heading - targetAngle) % 360 + 540) % 360) - 180;
+      if (Math.abs(turn) > 100 && distanceSquared < REVERSAL_DISTANCE ** 2) return;
+      origin = { x, y };
+      if (Math.abs(turn) >= ANGLE_DEADBAND) targetAngle += turn;
+    };
+
+    const paint = (now: number) => {
+      frame = 0;
+      const event = pending;
+      pending = undefined;
+      if (event) {
+        const target = event.target;
+        if (!(target instanceof Element) || !target.isConnected) { hide(); return; }
+
+        const x = event.clientX;
+        const y = event.clientY;
+        steer(x, y);
+
+        if (target !== lastTarget) {
+          clearTarget();
+          lastTarget = target;
+          if (!target.closest(NATIVE_TARGETS)) {
+            const keyword = getComputedStyle(target).cursor.split(",").pop()?.trim();
+            if (keyword === "auto" || keyword === "default" || keyword === "pointer") {
+              paintedTarget = target;
+              target.setAttribute(TARGET, "");
+              cursor.toggleAttribute("data-interactive", keyword === "pointer");
+            }
           }
         }
+
+        if (!paintedTarget) {
+          cursor.hidden = true;
+          lastTurnFrame = undefined;
+          return;
+        }
+        if (cursor.hidden) displayedAngle = targetAngle;
+        cursor.hidden = false;
+        cursor.style.transform = `translate3d(${x}px, ${y}px, 0)`;
       }
 
-      cursor.hidden = !paintedTarget;
-      if (!paintedTarget) return;
-      cursor.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-      arrow.style.transform = `rotate(${angle}deg)`;
+      if (!paintedTarget?.isConnected) { hide(); return; }
+      // Only the angle eases; the hotspot is always the most recent pointer position.
+      const elapsed = lastTurnFrame === undefined ? 16.67 : Math.min(now - lastTurnFrame, 32);
+      const remaining = targetAngle - displayedAngle;
+      const settled = Math.abs(remaining) < 0.45;
+      displayedAngle = settled ? targetAngle : displayedAngle + remaining * (1 - Math.exp(-elapsed / TURN_RESPONSE_MS));
+      arrow.style.transform = `rotate(${displayedAngle.toFixed(2)}deg)`;
+      lastTurnFrame = settled ? undefined : now;
+      if (!settled) frame = requestAnimationFrame(paint);
     };
 
     const track = (event: PointerEvent) => {

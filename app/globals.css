@@ -331,7 +331,7 @@ pre::-webkit-scrollbar-thumb:hover {
   top: -11px;
   left: -22px;
   transform-origin: 22px 11px;
-  transition: transform 90ms ease-out;
+  will-change: transform;
   fill: #f0f4f7;
   stroke: #2b3842;
 }
